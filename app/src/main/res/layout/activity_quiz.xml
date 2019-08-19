@@ -10,8 +10,10 @@
         android:id="@+id/tv_question"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:text="TextView"
+        android:textColor="@android:color/background_light"
         android:textSize="20sp" />
 
     <ImageView
@@ -40,8 +42,10 @@
                 android:id="@+id/et_answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                />
+                android:hint="enter answer"
+                android:lines="1"
+                android:textColor="@android:color/background_light"
+                android:textColorHint="@android:color/darker_gray" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,7 +56,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
             android:background="@drawable/bg_round_bg"
-            android:src="@drawable/ic_check_black_24dp"
-            android:onClick="onCheckAnswer"/>
+            android:src="@drawable/ic_check_black_24dp" />
     </LinearLayout>
 </LinearLayout>
