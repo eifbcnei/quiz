@@ -1,23 +1,25 @@
 package ru.mycompany.impossiblequiz.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.List;
 
-public class QuizCharacter implements Parcelable {
+public class QuizCharacter  {
     private Status status;
     private List<Question> questions;
     private int curQuestionIndex;
+
+
+    public String getCurrentQuestion() {
+        return questions.get(curQuestionIndex).getQuestion();
+    }
 
     public Status getStatus() {
         return status;
     }
 
-    public QuizCharacter(){
-        status=Status.NORMAL;
-        curQuestionIndex=0;
-        questions=null;
+    public QuizCharacter() {
+        status = Status.NORMAL;
+        curQuestionIndex = 0;
+        questions = null;
     }
 
     public QuizCharacter(Status status, List<Question> questions) {
@@ -32,36 +34,35 @@ public class QuizCharacter implements Parcelable {
         this.curQuestionIndex = curQuestionIndex;
     }
 
-    public static final Creator<QuizCharacter> CREATOR = new Creator<QuizCharacter>() {
-        @Override
-        public QuizCharacter createFromParcel(Parcel in) {
-            Status status = Status.valueOf(in.readString());
-            List<Question> questions = in.readArrayList(Question.class.getClassLoader());
-            int curIndex = in.readInt();
-            return new QuizCharacter(status, questions, curIndex);
-        }
-
-        @Override
-        public QuizCharacter[] newArray(int size) {
-            return new QuizCharacter[size];
-        }
-    };
-
     @Override
-    public int describeContents() {
-        return 0;
+    public String toString() {
+        return "QuizCharacter{" +
+                "status=" + status +
+                ", questions=" + questions +
+                ", curQuestionIndex=" + curQuestionIndex +
+                '}';
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(status.name());
-        dest.writeValue(questions);
-        dest.writeInt(curQuestionIndex);
+    public Question getQuestion(int index){
+        return questions.get(index);
     }
 
-    public boolean checkAnswer(String answer) {
+    public int getQuestionsCount(){
+        return questions.size();
+    }
+
+    public void checkAnswer(String answer) {
         boolean isCorrect = questions.get(curQuestionIndex).containsAnswer(answer);
-        return isCorrect;
+        if (isCorrect) {
+            if (curQuestionIndex != questions.size() - 1) {
+                curQuestionIndex++;
+            }
+        } else {
+            nextStatus();
+            if (status == Status.NORMAL) {
+                curQuestionIndex = 0;
+            }
+        }
     }
 
     public enum Status {
@@ -79,14 +80,13 @@ public class QuizCharacter implements Parcelable {
             this.green = green;
             this.blue = blue;
         }
-
-
     }
+
     public void nextStatus() {
-        if(status.ordinal()<Status.values().length-1){
-            status=Status.values()[status.ordinal()+1];
-        }else{
-            status=Status.values()[0];
+        if (status.ordinal() < Status.values().length - 1) {
+            status = Status.values()[status.ordinal() + 1];
+        } else {
+            status = Status.values()[0];
         }
     }
 }
