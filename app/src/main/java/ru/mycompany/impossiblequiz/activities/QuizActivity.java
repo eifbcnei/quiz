@@ -1,9 +1,11 @@
-package ru.mycompany.impossiblequiz;
+package ru.mycompany.impossiblequiz.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import ru.mycompany.impossiblequiz.R;
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
 import ru.mycompany.impossiblequiz.viewmodels.QuizViewModel;
 
@@ -64,5 +67,26 @@ public class QuizActivity extends AppCompatActivity {
                 characterModel.onCheckAnswer(answer);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case R.id.create_character:
+                Intent createActivity=new Intent(this,CreateQuizCharacterActivity.class);
+                startActivity(createActivity);
+                break;
+            case R.id.action_about:
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
