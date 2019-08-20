@@ -1,25 +1,28 @@
 package ru.mycompany.impossiblequiz.models;
 
-import java.util.List;
-
 public class Question {
     private final String question;
-    private final List<String> answers;
+    private final String answer;
 
-    public Question(String question, List<String> answers) {
+    public Question(String question, String answers) {
         this.question = question;
-        this.answers = answers;
+        this.answer = answers;
     }
 
-    public List<String> getAnswers() {
-        return answers;
+    public String getAnswer() {
+        return answer;
     }
 
     public String getQuestion() {
         return question;
     }
 
-    public boolean containsAnswer(String answer) {
-        return answers.contains(answer);
+    public boolean isAnswerCorrect(String answer) {
+        return this.answer.equals(answer) || this.answer.equals(translite(answer));
+    }
+
+    private String translite(String answer) {
+        //TODO
+        return null;
     }
 }

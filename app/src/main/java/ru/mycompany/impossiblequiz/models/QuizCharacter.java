@@ -7,6 +7,9 @@ public class QuizCharacter  {
     private List<Question> questions;
     private int curQuestionIndex;
 
+    public List<Question> getQuestions() {
+        return questions;
+    }
 
     public String getCurrentQuestion() {
         return questions.get(curQuestionIndex).getQuestion();
@@ -52,7 +55,7 @@ public class QuizCharacter  {
     }
 
     public void checkAnswer(String answer) {
-        boolean isCorrect = questions.get(curQuestionIndex).containsAnswer(answer);
+        boolean isCorrect = questions.get(curQuestionIndex).isAnswerCorrect(answer);
         if (isCorrect) {
             if (curQuestionIndex != questions.size() - 1) {
                 curQuestionIndex++;
