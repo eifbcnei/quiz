@@ -10,13 +10,12 @@ public class AppPreferences {
     }
 
     private static final SharedPreferences instance = PreferenceManager.getDefaultSharedPreferences(App.applicationContext());
-
+    private static DatabaseHelper dbHelper=new DatabaseHelper(App.applicationContext());
     public static QuizCharacter getLastCharacter() {
-        return MockDatabase.getQuizCharacterByIndex(instance.getInt("LAST_CHARACTER_INDEX", 0));
+        return dbHelper.getQuizCharacterByIndex(instance.getInt("LAST_CHARACTER_INDEX", 0));
     }
 
     public static void saveQuizCharacter(QuizCharacter quizCharacter){
-        int index= MockDatabase.saveQuizCharacter(quizCharacter);
-        instance.edit().putInt("LAST_CHARCATER_INDEX",index);
+        dbHelper.saveQuizCharacter(quizCharacter);
     }
 }
