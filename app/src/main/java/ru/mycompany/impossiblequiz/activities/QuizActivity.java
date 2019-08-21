@@ -80,11 +80,12 @@ public class QuizActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.create_character:
-                Intent createActivity=new Intent(this,CreateQuizCharacterActivity.class);
+                Intent createActivity = new Intent(this, CreateQuizCharacterActivity.class);
+                createActivity.putExtra("QUESTIONS_COUNT", 5);
                 startActivity(createActivity);
                 break;
             case R.id.action_about:
-
+                //TODO
                 break;
         }
         return super.onOptionsItemSelected(item);
