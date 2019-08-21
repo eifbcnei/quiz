@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
-            android:background="@drawable/bg_round_bg"
-            android:src="@drawable/ic_check_black_24dp" />
+            android:background="@drawable/btn_round_bg"
+            android:src="@drawable/ic_check_24dp" />
     </LinearLayout>
 </LinearLayout>

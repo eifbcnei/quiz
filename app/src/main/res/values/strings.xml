@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ImpossibleQuiz</string>
+    <string name="create_qc_hint">Time to create new character!</string>
 </resources>

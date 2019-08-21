@@ -46,14 +46,6 @@ public class QuizCharacter {
                 '}';
     }
 
-    public Question getQuestion(int index) {
-        return questions.get(index);
-    }
-
-    public int getQuestionsCount() {
-        return questions.size();
-    }
-
     public void checkAnswer(String answer) {
         boolean isCorrect = questions.get(curQuestionIndex).isAnswerCorrect(answer);
         if (isCorrect) {

@@ -81,7 +81,7 @@ public class QuizActivity extends AppCompatActivity {
         switch (itemId) {
             case R.id.create_character:
                 Intent createActivity = new Intent(this, CreateQuizCharacterActivity.class);
-                createActivity.putExtra("QUESTIONS_COUNT", 5);
+                createActivity.putExtra("QUESTIONS_COUNT", 6);
                 startActivity(createActivity);
                 break;
             case R.id.action_about:

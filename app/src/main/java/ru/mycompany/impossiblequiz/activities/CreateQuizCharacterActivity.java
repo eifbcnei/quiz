@@ -23,9 +23,7 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quiz_character);
 
-        LinearLayout linearLayout = new LinearLayout(this);
-        setContentView(linearLayout);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout linearLayout = findViewById(R.id.ll_dataInputList);
 
         Intent intent = getIntent();
 
@@ -37,11 +35,11 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
 
         for (int i = 0; i < questionsCount; i++) {
             questionsInput[i] = new EditText(this);
-            questionsInput[i].setHint(String.format("Question #%s", Integer.toString(i)));
+            questionsInput[i].setHint(String.format("Question #%s", Integer.toString(i+1)));
             linearLayout.addView(questionsInput[i]);
 
             answersInput[i] = new EditText(this);
-            answersInput[i].setHint(String.format("Answer #%s", Integer.toString(i)));
+            answersInput[i].setHint(String.format("Answer #%s", Integer.toString(i+1)));
             linearLayout.addView(answersInput[i]);
         }
 
