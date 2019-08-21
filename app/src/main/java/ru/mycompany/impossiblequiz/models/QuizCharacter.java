@@ -2,7 +2,7 @@ package ru.mycompany.impossiblequiz.models;
 
 import java.util.List;
 
-public class QuizCharacter  {
+public class QuizCharacter {
     private Status status;
     private List<Question> questions;
     private int curQuestionIndex;
@@ -25,8 +25,8 @@ public class QuizCharacter  {
         questions = null;
     }
 
-    public QuizCharacter(Status status, List<Question> questions) {
-        this.status = status;
+    public QuizCharacter(List<Question> questions) {
+        this.status = Status.NORMAL;
         this.questions = questions;
         curQuestionIndex = 0;
     }
@@ -46,11 +46,11 @@ public class QuizCharacter  {
                 '}';
     }
 
-    public Question getQuestion(int index){
+    public Question getQuestion(int index) {
         return questions.get(index);
     }
 
-    public int getQuestionsCount(){
+    public int getQuestionsCount() {
         return questions.size();
     }
 
