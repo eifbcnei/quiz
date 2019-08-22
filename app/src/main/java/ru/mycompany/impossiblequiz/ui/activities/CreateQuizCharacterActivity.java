@@ -3,17 +3,18 @@ package ru.mycompany.impossiblequiz.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ru.mycompany.impossiblequiz.R;
-import ru.mycompany.impossiblequiz.ui.adapters.QuestionAdapter;
 import ru.mycompany.impossiblequiz.models.QuestionCreator;
+import ru.mycompany.impossiblequiz.ui.adapters.QuestionAdapter;
 
 public class CreateQuizCharacterActivity extends AppCompatActivity {
 
@@ -40,7 +41,7 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
         QuestionAdapter adapter = new QuestionAdapter(this, R.layout.question_item, list);
         questionsList.setAdapter(adapter);
 
-        Button btn = findViewById(R.id.btn_save_character);
+        FloatingActionButton btn = findViewById(R.id.btn_save_character);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

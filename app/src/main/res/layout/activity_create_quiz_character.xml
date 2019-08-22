@@ -54,23 +54,31 @@
         android:gravity="center_horizontal"
         android:text="@string/image_warning" />
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_pick_image"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/pick_picture" />
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="@dimen/spacing_small_8"
+            android:backgroundTint="@color/colorPrimary"
+            android:clickable="true"
+            android:src="@drawable/ic_qc_avatar_24dp" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_save_character"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/save_character" />
-    </LinearLayout>
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="@dimen/spacing_small_8"
+            android:backgroundTint="@color/colorPrimary"
+            android:clickable="true"
+            android:src="@drawable/ic_save_24dp" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>
