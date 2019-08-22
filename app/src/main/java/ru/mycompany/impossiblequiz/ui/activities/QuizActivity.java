@@ -1,4 +1,4 @@
-package ru.mycompany.impossiblequiz.activities;
+package ru.mycompany.impossiblequiz.ui.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import ru.mycompany.impossiblequiz.R;
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
+import ru.mycompany.impossiblequiz.ui.activities.CreateQuizCharacterActivity;
 import ru.mycompany.impossiblequiz.viewmodels.QuizViewModel;
 
 public class QuizActivity extends AppCompatActivity {
