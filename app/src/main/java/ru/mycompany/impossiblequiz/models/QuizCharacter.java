@@ -19,12 +19,6 @@ public class QuizCharacter {
         return status;
     }
 
-    public QuizCharacter() {
-        status = Status.NORMAL;
-        curQuestionIndex = 0;
-        questions = null;
-    }
-
     public QuizCharacter(List<Question> questions) {
         this.status = Status.NORMAL;
         this.questions = questions;

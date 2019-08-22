@@ -32,39 +32,66 @@ public class QuestionAdapter extends ArrayAdapter<QuestionCreator> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = inflater.inflate(this.layout, parent, false);
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        final ViewHolder viewHolder;
+        if (convertView == null) {
+            convertView = inflater.inflate(this.layout, parent, false);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
-        TextView questionNumber = view.findViewById(R.id.tv_question_number);
-        final EditText questionInput = view.findViewById(R.id.et_question_input);
-        EditText answerInput = view.findViewById(R.id.et_answer_input);
-        TextWatcher inputTester = new TextWatcher() {
+        viewHolder.questionInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().contains("@")) {
-                    questionInput.setError("@");
-                } else {
-                    questionInput.setError(null);
-                }
+                updateError(viewHolder.questionInput, s.toString());
             }
-        };
+        });
+        viewHolder.answerInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-        questionInput.addTextChangedListener(inputTester);
-        answerInput.addTextChangedListener(inputTester);
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
-        questionNumber.setText(String.format("Enter question #%s:", Integer.toString(position)));
+            @Override
+            public void afterTextChanged(Editable s) {
+                updateError(viewHolder.answerInput, s.toString());
+            }
+        });
+        viewHolder.questionNumber.setText(String.format("Enter question #%s:", Integer.toString(position + 1)));
 
-        return view;
+        return convertView;
     }
 
+    class ViewHolder {
+        final TextView questionNumber;
+        final EditText answerInput, questionInput;
 
+        public ViewHolder(View view) {
+            questionNumber = view.findViewById(R.id.tv_question_number);
+            questionInput = view.findViewById(R.id.et_question_input);
+            answerInput = view.findViewById(R.id.et_answer_input);
+        }
+    }
+
+    private void updateError(EditText editText, String input) {
+        final String BANNED_SYMBOL = "@";
+        if (input.contains(BANNED_SYMBOL)) {
+            editText.setError("@");
+        } else {
+            editText.setError(null);
+        }
+    }
 }

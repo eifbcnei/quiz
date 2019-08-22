@@ -11,6 +11,7 @@ import java.util.List;
 
 import ru.mycompany.impossiblequiz.models.Question;
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
+import ru.mycompany.impossiblequiz.models.QuizCharacterBuilder;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private final String COLUMN_ID = "_id";
@@ -52,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         for (int i = 0; i != questions.size(); i++) {
             questionList.add(new Question(questions.get(i), answers.get(i)));
         }
-        QuizCharacter quizCharacter = new QuizCharacter(questionList);
+        QuizCharacter quizCharacter = new QuizCharacterBuilder().setQuestions(questionList).createQuizCharacter();
         query.close();
         return quizCharacter;
     }

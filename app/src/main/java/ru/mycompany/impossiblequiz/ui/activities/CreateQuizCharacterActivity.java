@@ -41,8 +41,16 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
         QuestionAdapter adapter = new QuestionAdapter(this, R.layout.question_item, list);
         questionsList.setAdapter(adapter);
 
-        FloatingActionButton btn = findViewById(R.id.btn_save_character);
-        btn.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton pickAvatarBtn = findViewById(R.id.btn_pick_image);
+        pickAvatarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO pick image from gallery
+            }
+        });
+
+        FloatingActionButton saveBtn = findViewById(R.id.btn_save_character);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int count = questionsList.getAdapter().getCount();
