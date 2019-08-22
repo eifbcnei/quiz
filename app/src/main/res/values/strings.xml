@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">ImpossibleQuiz</string>
     <string name="create_qc_hint">Time to create new character!</string>
+    <string name="enter_answer_hint">enter answer</string>
+    <string name="image_warning">Image is not chosen</string>
+    <string name="pick_picture">pick picture</string>
+    <string name="save_character">save character</string>
+    <string name="enter_question_hint">enter question</string>
 </resources>

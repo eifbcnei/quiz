@@ -15,19 +15,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/spacing_small_8"
             android:gravity="center_horizontal"
             android:text="@string/create_qc_hint"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="@dimen/textSize_large_20" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="@dimen/divider_depth"
+            android:layout_marginLeft="@dimen/spacing_small_8"
+            android:layout_marginTop="@dimen/spacing_normal_16dp"
+            android:layout_marginRight="@dimen/spacing_small_8"
+            android:layout_marginBottom="@dimen/spacing_normal_16dp"
             android:background="@color/colorPrimary" />
     </LinearLayout>
 
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_warning_24dp"
         android:gravity="center_horizontal"
-        android:text="image is not chosen" />
+        android:text="@string/image_warning" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,13 +64,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="pick picture" />
+            android:text="@string/pick_picture" />
 
         <Button
             android:id="@+id/btn_save_character"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="save character" />
+            android:text="@string/save_character" />
     </LinearLayout>
 </LinearLayout>
