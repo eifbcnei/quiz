@@ -31,7 +31,7 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
 
         int questionsCount = intent.getIntExtra("QUESTIONS_COUNT", 3);
 
-        questionsList = findViewById(R.id.ll_dataInputList);
+        questionsList = findViewById(R.id.lv_questions_input);
 
         List<QuestionCreator> list = new ArrayList<>(questionsCount);
         for (int i = 0; i < questionsCount; i++) {
@@ -41,7 +41,7 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
         QuestionAdapter adapter = new QuestionAdapter(this, R.layout.question_item, list);
         questionsList.setAdapter(adapter);
 
-        FloatingActionButton pickAvatarBtn = findViewById(R.id.btn_pick_image);
+        FloatingActionButton pickAvatarBtn = findViewById(R.id.fab_pick_image);
         pickAvatarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +49,7 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton saveBtn = findViewById(R.id.btn_save_character);
+        FloatingActionButton saveBtn = findViewById(R.id.fab_save_character);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

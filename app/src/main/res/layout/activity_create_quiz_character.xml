@@ -39,7 +39,7 @@
 
 
         <ListView
-            android:id="@+id/ll_dataInputList"
+            android:id="@+id/lv_questions_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -60,7 +60,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_pick_image"
+            android:id="@+id/fab_pick_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
@@ -71,7 +71,7 @@
             android:src="@drawable/ic_qc_avatar_24dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_save_character"
+            android:id="@+id/fab_save_character"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
