@@ -45,12 +45,21 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <View
+            android:layout_width="@dimen/divider_depth"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/spacing_small_8"
+            android:layout_marginTop="@dimen/spacing_small_8"
+            android:layout_marginBottom="@dimen/spacing_small_8"
+            android:background="@android:color/darker_gray" />
+
         <ImageButton
             android:id="@+id/ib_check"
             android:layout_width="@dimen/btn_normal_24"
             android:layout_height="@dimen/btn_normal_24"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/spacing_normal_16dp"
+            android:layout_marginStart="@dimen/spacing_normal_16dp"
+            android:layout_marginEnd="@dimen/spacing_small_8"
             android:background="@drawable/btn_round_bg"
             android:src="@drawable/ic_check_24dp" />
     </LinearLayout>
