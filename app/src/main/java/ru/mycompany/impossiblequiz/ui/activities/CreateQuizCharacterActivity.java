@@ -15,11 +15,21 @@ import java.util.List;
 import ru.mycompany.impossiblequiz.R;
 import ru.mycompany.impossiblequiz.models.QuestionCreator;
 import ru.mycompany.impossiblequiz.ui.adapters.QuestionAdapter;
+import ru.mycompany.impossiblequiz.ui.custom.CircleImageView;
 
 public class CreateQuizCharacterActivity extends AppCompatActivity {
 
     private ListView questionsList;
 
+
+    public static final int PICK_IMAGE = 1;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PICK_IMAGE) {
+            //TODO
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +51,14 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
         QuestionAdapter adapter = new QuestionAdapter(this, R.layout.question_item, list);
         questionsList.setAdapter(adapter);
 
-        FloatingActionButton pickAvatarBtn = findViewById(R.id.fab_pick_image);
-        pickAvatarBtn.setOnClickListener(new View.OnClickListener() {
+        CircleImageView avatar = findViewById(R.id.civ_avatar_picker);
+        avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO pick image from gallery
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
             }
         });
 
