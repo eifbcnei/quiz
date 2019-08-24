@@ -34,7 +34,7 @@
             android:layout_width="@dimen/civ_large_150"
             android:layout_height="@dimen/civ_large_150"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_default_avatar_160dp"
+            android:src="@drawable/ic_default_avatar_150dp"
             app:highlightEnable="true"
             app:strokeColor="@android:color/holo_red_dark"
             app:strokeWidth="2dp" />
