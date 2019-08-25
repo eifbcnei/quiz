@@ -1,20 +1,26 @@
 package ru.mycompany.impossiblequiz.models;
 
-import android.net.Uri;
+import android.graphics.drawable.Drawable;
 
 import java.util.List;
 
 public class QuizCharacter {
+    private String name;
     private Status status;
     private List<Question> questions;
     private int curQuestionIndex;
-    private Uri avatar;
+    private Drawable avatar;
 
-    public QuizCharacter(Status status, List<Question> questions, int curQuestionIndex, Uri avatar) {
+    public QuizCharacter(String name, Status status, List<Question> questions, int curQuestionIndex, Drawable avatar) {
         this.status = status;
+        this.name = name;
         this.questions = questions;
         this.curQuestionIndex = 0;
         this.avatar = avatar;
+    }
+
+    public Drawable getAvatar() {
+        return avatar;
     }
 
     public List<Question> getQuestions() {

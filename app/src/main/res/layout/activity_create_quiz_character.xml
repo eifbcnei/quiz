@@ -29,14 +29,39 @@
             android:layout_marginBottom="@dimen/spacing_small_8"
             android:background="@color/colorPrimary" />
 
-        <ru.mycompany.impossiblequiz.ui.custom.CircleImageView
-            android:id="@+id/civ_avatar_picker"
-            android:layout_width="@dimen/civ_large_150"
-            android:layout_height="@dimen/civ_large_150"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_default_avatar_150dp"
-            app:highlightEnable="true"
-            app:strokeWidth="2dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ru.mycompany.impossiblequiz.ui.custom.CircleImageView
+                android:id="@+id/civ_avatar_picker"
+                android:layout_width="@dimen/civ_large_150"
+                android:layout_height="@dimen/civ_large_150"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/spacing_small_8"
+                android:src="@drawable/ic_default_avatar_150dp"
+                app:highlightEnable="true"
+                app:strokeWidth="2dp" />
+
+            <View
+                android:layout_width="@dimen/divider_depth"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/spacing_small_8"
+                android:background="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:hint="@string/enter_name_hint"
+                android:imeOptions="actionDone"
+                android:maxLength="20"
+                android:maxLines="1"
+                />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -68,8 +93,8 @@
                 android:layout_margin="@dimen/spacing_normal_16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:clickable="true"
-                android:src="@drawable/ic_save_24dp"
-                android:focusable="true" />
+                android:focusable="true"
+                android:src="@drawable/ic_save_24dp" />
         </FrameLayout>
     </LinearLayout>
 </FrameLayout>

@@ -6,4 +6,6 @@
     <string name="pick_picture">pick picture</string>
     <string name="save_character">save character</string>
     <string name="enter_question_hint">enter question</string>
+    <string name="wrong_input_warning">Some fields are empty!</string>
+    <string name="enter_name_hint">enter name</string>
 </resources>

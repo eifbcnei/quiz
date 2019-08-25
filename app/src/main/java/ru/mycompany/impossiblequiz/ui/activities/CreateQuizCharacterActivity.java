@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,8 +20,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.mycompany.impossiblequiz.InputValidation;
 import ru.mycompany.impossiblequiz.R;
+import ru.mycompany.impossiblequiz.models.Question;
 import ru.mycompany.impossiblequiz.models.QuestionBuilder;
+import ru.mycompany.impossiblequiz.models.QuizCharacter;
+import ru.mycompany.impossiblequiz.models.QuizCharacterBuilder;
 import ru.mycompany.impossiblequiz.ui.adapters.QuestionAdapter;
 import ru.mycompany.impossiblequiz.ui.custom.CircleImageView;
 import ru.mycompany.impossiblequiz.viewmodels.QuizViewModel;
@@ -46,7 +51,7 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
                     //data.getData returns the content URI for the selected Image
                     Uri selectedImage = data.getData();
                     Drawable defaultAvatar = getDrawable(R.drawable.ic_default_avatar_150dp);
-                    characterViewModel.onAvatarChanged(selectedImage,defaultAvatar);
+                    characterViewModel.onAvatarChanged(selectedImage, defaultAvatar);
                     break;
             }
     }
@@ -103,16 +108,30 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (avatarCiv.getStrokeColor() == IMAGE_NOT_CHOSEN) {
                     showWarning(getString(R.string.image_warning));
+                    return;
                 }
-
-                QuestionAdapter adapter = (QuestionAdapter) questionsList.getAdapter();
-                int count = adapter.getCount();
-                for (int i = 0; i < count; i++) {
-                    QuestionBuilder item = adapter.getItem(i);
-
+                try {
+                    QuestionAdapter adapter = (QuestionAdapter) questionsList.getAdapter();
+                    List<Question> usersInput = adapter.getUsersInput();
+                    String name = getNameInput();
+                    QuizCharacter quizCharacter = new QuizCharacterBuilder()
+                            .setName(name)
+                            .setQuestions(usersInput)
+                            .setAvatar(avatarCiv.getDrawable())
+                            .createQuizCharacter();
+                    characterViewModel.onNewQuizCharacterSelected(quizCharacter);
+                } catch (Exception e) {
+                    showWarning(getString(R.string.wrong_input_warning));
                 }
             }
         });
+    }
+
+    private String getNameInput() throws Exception {
+        EditText nameInput = findViewById(R.id.et_name);
+        if (InputValidation.isStringBlank(nameInput.getText().toString())) throw new Exception();
+
+        return nameInput.getText().toString();
     }
 
     private void showWarning(String text) {

@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import ru.mycompany.impossiblequiz.R;
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
-import ru.mycompany.impossiblequiz.ui.activities.CreateQuizCharacterActivity;
 import ru.mycompany.impossiblequiz.viewmodels.QuizViewModel;
 
 public class QuizActivity extends AppCompatActivity {
@@ -51,6 +50,7 @@ public class QuizActivity extends AppCompatActivity {
     private void updateQuiz(QuizCharacter quizCharacter) {
         questionView.setText(quizCharacter.getCurrentQuestion());
         QuizCharacter.Status curStatus = quizCharacter.getStatus();
+        characterView.setImageDrawable(characterModel.getQuizCharacterLiveData().getValue().getAvatar());
         characterView.setColorFilter(Color.rgb(curStatus.red, curStatus.green, curStatus.blue), PorterDuff.Mode.MULTIPLY);
     }
 

@@ -42,18 +42,12 @@ public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
         for (QuestionBuilder qb : questionList) {
             questions.add(qb.build());
 
-            if (InputValidation.isQuestionValid(qb)) {
+            if (!InputValidation.isQuestionValid(qb)) {
                 throw new IOException();
             }
         }
 
         return questions;
-    }
-
-    @Nullable
-    @Override
-    public QuestionBuilder getItem(int position) {
-        return questionList.get(position);
     }
 
     @NonNull
@@ -104,25 +98,24 @@ public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
         return convertView;
     }
 
-    private boolean isInputValid(EditText editText, boolean isQuestion) {
+    private void isInputValid(EditText editText, boolean isQuestion) {
         final String input = editText.getText().toString();
         if (InputValidation.hasBannedSymbol(input)) {
             editText.setError(BANNED_SYMBOL);
-            return false;
+            return;
         }
 
         if (isQuestion && !InputValidation.isCorrectQuestion(input)) {
             editText.setError("Must end with \"?\"");
-            return false;
+            return;
         }
 
         if (InputValidation.isStringBlank(input)) {
             editText.setError("blank input");
-            return false;
+            return;
         }
 
         editText.setError(null);
-        return true;
     }
 
     class ViewHolder {

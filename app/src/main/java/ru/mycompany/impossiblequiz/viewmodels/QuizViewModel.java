@@ -37,9 +37,12 @@ public class QuizViewModel extends ViewModel {
         avatarLiveData.setValue(circleImageView);
     }
 
+
     public LiveData<QuizCharacter> getQuizCharacterLiveData() {
         return quizCharacterLiveData;
     }
+
+
 
     public void onNewQuizCharacterSelected(QuizCharacter quizCharacter) {
         quizCharacterLiveData.setValue(quizCharacter);
