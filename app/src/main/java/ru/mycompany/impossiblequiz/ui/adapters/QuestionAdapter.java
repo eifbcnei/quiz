@@ -13,21 +13,47 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import ru.mycompany.impossiblequiz.InputValidation;
 import ru.mycompany.impossiblequiz.R;
-import ru.mycompany.impossiblequiz.models.QuestionCreator;
+import ru.mycompany.impossiblequiz.models.Question;
+import ru.mycompany.impossiblequiz.models.QuestionBuilder;
 
-public class QuestionAdapter extends ArrayAdapter<QuestionCreator> {
+public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
+    private static final String BANNED_SYMBOL = "@";
     private LayoutInflater inflater;
-    private List<QuestionCreator> questionList;
+    private List<QuestionBuilder> questionList;
+
     private int layout;
 
-    public QuestionAdapter(@NonNull Context context, int resource, @NonNull List<QuestionCreator> objects) {
+    public QuestionAdapter(@NonNull Context context, int resource, @NonNull List<QuestionBuilder> objects) {
         super(context, resource, objects);
         inflater = LayoutInflater.from(context);
         questionList = objects;
         layout = resource;
+    }
+
+    public List<Question> getUsersInput() throws IOException {
+        List<Question> questions = new ArrayList<>(questionList.size());
+
+        for (QuestionBuilder qb : questionList) {
+            questions.add(qb.build());
+
+            if (InputValidation.isQuestionValid(qb)) {
+                throw new IOException();
+            }
+        }
+
+        return questions;
+    }
+
+    @Nullable
+    @Override
+    public QuestionBuilder getItem(int position) {
+        return questionList.get(position);
     }
 
     @NonNull
@@ -53,7 +79,9 @@ public class QuestionAdapter extends ArrayAdapter<QuestionCreator> {
 
             @Override
             public void afterTextChanged(Editable s) {
-                updateError(viewHolder.questionInput, s.toString());
+                isInputValid(viewHolder.questionInput, true);
+                questionList.get(position).setQuestion(viewHolder.questionInput.getText().toString());
+
             }
         });
         viewHolder.answerInput.addTextChangedListener(new TextWatcher() {
@@ -67,7 +95,8 @@ public class QuestionAdapter extends ArrayAdapter<QuestionCreator> {
 
             @Override
             public void afterTextChanged(Editable s) {
-                updateError(viewHolder.answerInput, s.toString());
+                isInputValid(viewHolder.answerInput, false);
+                questionList.get(position).setAnswer(viewHolder.answerInput.getText().toString());
             }
         });
         viewHolder.questionNumber.setText(String.format("Enter question #%s:", Integer.toString(position + 1)));
@@ -75,23 +104,35 @@ public class QuestionAdapter extends ArrayAdapter<QuestionCreator> {
         return convertView;
     }
 
+    private boolean isInputValid(EditText editText, boolean isQuestion) {
+        final String input = editText.getText().toString();
+        if (InputValidation.hasBannedSymbol(input)) {
+            editText.setError(BANNED_SYMBOL);
+            return false;
+        }
+
+        if (isQuestion && !InputValidation.isCorrectQuestion(input)) {
+            editText.setError("Must end with \"?\"");
+            return false;
+        }
+
+        if (InputValidation.isStringBlank(input)) {
+            editText.setError("blank input");
+            return false;
+        }
+
+        editText.setError(null);
+        return true;
+    }
+
     class ViewHolder {
         final TextView questionNumber;
         final EditText answerInput, questionInput;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             questionNumber = view.findViewById(R.id.tv_question_number);
             questionInput = view.findViewById(R.id.et_question_input);
             answerInput = view.findViewById(R.id.et_answer_input);
-        }
-    }
-
-    private void updateError(EditText editText, String input) {
-        final String BANNED_SYMBOL = "@";
-        if (input.contains(BANNED_SYMBOL)) {
-            editText.setError("@");
-        } else {
-            editText.setError(null);
         }
     }
 }

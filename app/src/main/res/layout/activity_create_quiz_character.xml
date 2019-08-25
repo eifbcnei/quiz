@@ -36,7 +36,6 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_default_avatar_150dp"
             app:highlightEnable="true"
-            app:strokeColor="@android:color/holo_red_dark"
             app:strokeWidth="2dp" />
 
         <View
@@ -69,7 +68,8 @@
                 android:layout_margin="@dimen/spacing_normal_16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:clickable="true"
-                android:src="@drawable/ic_save_24dp" />
+                android:src="@drawable/ic_save_24dp"
+                android:focusable="true" />
         </FrameLayout>
     </LinearLayout>
 </FrameLayout>

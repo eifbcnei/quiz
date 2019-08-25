@@ -1,7 +1,7 @@
 package ru.mycompany.impossiblequiz.models;
 
 public class QuestionBuilder {
-    private String question, answer;
+    public String question, answer;
 
     public QuestionBuilder() {
         question = "";

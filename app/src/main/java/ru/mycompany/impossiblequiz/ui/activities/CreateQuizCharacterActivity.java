@@ -1,17 +1,18 @@
 package ru.mycompany.impossiblequiz.ui.activities;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,30 +20,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.mycompany.impossiblequiz.R;
-import ru.mycompany.impossiblequiz.models.QuestionCreator;
+import ru.mycompany.impossiblequiz.models.QuestionBuilder;
 import ru.mycompany.impossiblequiz.ui.adapters.QuestionAdapter;
 import ru.mycompany.impossiblequiz.ui.custom.CircleImageView;
+import ru.mycompany.impossiblequiz.viewmodels.QuizViewModel;
 
 public class CreateQuizCharacterActivity extends AppCompatActivity {
 
-    public static final int PICK_IMAGE = 1;
+    private static final int PICK_IMAGE = 1;
+    private static final int IMAGE_NOT_CHOSEN = Color.RED;
+    private static final int IMAGE_CHOSEN = Color.GREEN;
 
+
+    private QuizViewModel characterViewModel;
     private ListView questionsList;
     private FloatingActionButton saveBtn;
     private CircleImageView avatarCiv;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PICK_IMAGE) {
-            //TODO
-        }
+        // Result code is RESULT_OK only if the user selects an Image
+        if (resultCode == Activity.RESULT_OK)
+            switch (requestCode) {
+                case PICK_IMAGE:
+                    //data.getData returns the content URI for the selected Image
+                    Uri selectedImage = data.getData();
+                    Drawable defaultAvatar = getDrawable(R.drawable.ic_default_avatar_150dp);
+                    characterViewModel.onAvatarChanged(selectedImage,defaultAvatar);
+                    break;
+            }
+    }
+
+    private void initViewModel() {
+        characterViewModel = ViewModelProviders.of(this).get(QuizViewModel.class);
+        characterViewModel.onCIVinit(avatarCiv);
     }
 
     private ListAdapter createInputAdapter(int elementsCount) {
-        List<QuestionCreator> list = new ArrayList<>(elementsCount);
+        List<QuestionBuilder> list = new ArrayList<>(elementsCount);
         for (int i = 0; i < elementsCount; i++) {
-            list.add(new QuestionCreator());
-
+            list.add(new QuestionBuilder());
         }
 
         return new QuestionAdapter(this, R.layout.question_item, list);
@@ -50,6 +67,7 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
 
     private void initViews() {
         avatarCiv = findViewById(R.id.civ_avatar_picker);
+        avatarCiv.setStrokeColor(IMAGE_NOT_CHOSEN);
         saveBtn = findViewById(R.id.fab_save_character);
         questionsList = findViewById(R.id.lv_questions_input);
     }
@@ -60,6 +78,7 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_quiz_character);
 
         initViews();
+        initViewModel();
 
         Intent intent = getIntent();
 
@@ -71,66 +90,35 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
         avatarCiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * validating characters image
-                 * must be not null and not default -> green stroke = correct
-                 * else -> red = incorrect
-                 */
-                if (!areDrawablesIdentical(avatarCiv.getDrawable(), getDrawable(R.drawable.ic_default_avatar_150dp))) {
-                    avatarCiv.setStrokeColor(Color.GREEN);
-                } else {
-                    avatarCiv.setStrokeColor(Color.RED);
-                }
-                /**
-                 * picking new image
-                 */
-                Intent intent = new Intent();
+                Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+                String[] mimeTypes = {"image/jpeg", "image/png"};
+                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+                startActivityForResult(intent, PICK_IMAGE);
             }
         });
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int count = questionsList.getAdapter().getCount();
+                if (avatarCiv.getStrokeColor() == IMAGE_NOT_CHOSEN) {
+                    showWarning(getString(R.string.image_warning));
+                }
+
+                QuestionAdapter adapter = (QuestionAdapter) questionsList.getAdapter();
+                int count = adapter.getCount();
                 for (int i = 0; i < count; i++) {
-                    //TODO save new quiz character and set as current in view model
+                    QuestionBuilder item = adapter.getItem(i);
+
                 }
             }
         });
     }
 
-    public static boolean areDrawablesIdentical(Drawable drawableA, Drawable drawableB) {
-        Drawable.ConstantState stateA = drawableA.getConstantState();
-        Drawable.ConstantState stateB = drawableB.getConstantState();
-        // If the constant state is identical, they are using the same drawable resource.
-        // However, the opposite is not necessarily true.
-        return (stateA != null && stateB != null && stateA.equals(stateB))
-                || getBitmap(drawableA).sameAs(getBitmap(drawableB));
+    private void showWarning(String text) {
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
+        toast.show();
     }
 
-    public static Bitmap getBitmap(Drawable drawable) {
-        Bitmap result;
-        if (drawable instanceof BitmapDrawable) {
-            result = ((BitmapDrawable) drawable).getBitmap();
-        } else {
-            int width = drawable.getIntrinsicWidth();
-            int height = drawable.getIntrinsicHeight();
-            // Some drawables have no intrinsic width - e.g. solid colours.
-            if (width <= 0) {
-                width = 1;
-            }
-            if (height <= 0) {
-                height = 1;
-            }
 
-            result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(result);
-            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            drawable.draw(canvas);
-        }
-        return result;
-    }
 }

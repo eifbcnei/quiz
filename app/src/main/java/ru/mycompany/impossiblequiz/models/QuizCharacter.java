@@ -1,11 +1,21 @@
 package ru.mycompany.impossiblequiz.models;
 
+import android.net.Uri;
+
 import java.util.List;
 
 public class QuizCharacter {
     private Status status;
     private List<Question> questions;
     private int curQuestionIndex;
+    private Uri avatar;
+
+    public QuizCharacter(Status status, List<Question> questions, int curQuestionIndex, Uri avatar) {
+        this.status = status;
+        this.questions = questions;
+        this.curQuestionIndex = 0;
+        this.avatar = avatar;
+    }
 
     public List<Question> getQuestions() {
         return questions;
@@ -17,18 +27,6 @@ public class QuizCharacter {
 
     public Status getStatus() {
         return status;
-    }
-
-    public QuizCharacter(List<Question> questions) {
-        this.status = Status.NORMAL;
-        this.questions = questions;
-        curQuestionIndex = 0;
-    }
-
-    public QuizCharacter(Status status, List<Question> questions, int curQuestionIndex) {
-        this.status = status;
-        this.questions = questions;
-        this.curQuestionIndex = curQuestionIndex;
     }
 
     @Override
