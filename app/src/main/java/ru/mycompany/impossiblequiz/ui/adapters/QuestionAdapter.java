@@ -46,7 +46,6 @@ public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
                 throw new IOException();
             }
         }
-
         return questions;
     }
 
@@ -54,6 +53,7 @@ public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         final ViewHolder viewHolder;
+
         if (convertView == null) {
             convertView = inflater.inflate(this.layout, parent, false);
             viewHolder = new ViewHolder(convertView);
@@ -62,40 +62,61 @@ public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.questionInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        final QuestionBuilder qb = questionList.get(position);
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+        TextAnalyser mtw = (TextAnalyser) viewHolder.questionInput.getTag();
+        if (mtw != null) viewHolder.questionInput.removeTextChangedListener(mtw);
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                isInputValid(viewHolder.questionInput, true);
-                questionList.get(position).setQuestion(viewHolder.questionInput.getText().toString());
+        mtw = (TextAnalyser) viewHolder.answerInput.getTag();
+        if (mtw != null) viewHolder.answerInput.removeTextChangedListener(mtw);
 
-            }
-        });
-        viewHolder.answerInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        viewHolder.answerInput.setText(qb.answer);
+        viewHolder.questionInput.setText(qb.question);
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+        TextAnalyser questionAnalyser = new TextAnalyser(viewHolder.questionInput, true, position);
+        viewHolder.questionInput.addTextChangedListener(questionAnalyser);
+        viewHolder.questionInput.setTag(questionAnalyser);
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                isInputValid(viewHolder.answerInput, false);
-                questionList.get(position).setAnswer(viewHolder.answerInput.getText().toString());
-            }
-        });
+        TextAnalyser answerAnalyser = new TextAnalyser(viewHolder.answerInput, false, position);
+        viewHolder.answerInput.addTextChangedListener(answerAnalyser);
+        viewHolder.answerInput.setTag(answerAnalyser);
+
         viewHolder.questionNumber.setText(String.format("Enter question #%s:", Integer.toString(position + 1)));
 
         return convertView;
+    }
+
+    class TextAnalyser implements TextWatcher {
+        EditText editText;
+        boolean isQuestion;
+        int position;
+
+        public TextAnalyser(EditText editText, boolean isQuestion, int position) {
+            this.editText = editText;
+            this.position = position;
+            this.isQuestion = isQuestion;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            isInputValid(editText, isQuestion);
+            QuestionBuilder qb = questionList.get(position);
+            if (isQuestion) {
+                qb.setQuestion(editText.getText().toString());
+            } else {
+                qb.setAnswer(editText.getText().toString());
+            }
+        }
     }
 
     private void isInputValid(EditText editText, boolean isQuestion) {
