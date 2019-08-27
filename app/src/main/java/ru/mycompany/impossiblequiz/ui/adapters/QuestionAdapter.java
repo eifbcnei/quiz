@@ -13,14 +13,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.mycompany.impossiblequiz.InputValidation;
+import ru.mycompany.impossiblequiz.ExceptionCodes;
 import ru.mycompany.impossiblequiz.R;
+import ru.mycompany.impossiblequiz.ValidationException;
 import ru.mycompany.impossiblequiz.models.Question;
 import ru.mycompany.impossiblequiz.models.QuestionBuilder;
+import ru.mycompany.impossiblequiz.utils.Validation;
 
 public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
     private static final String BANNED_SYMBOL = "@";
@@ -36,14 +37,14 @@ public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
         layout = resource;
     }
 
-    public List<Question> getUsersInput() throws IOException {
+    public List<Question> getUsersInput() throws ValidationException {
         List<Question> questions = new ArrayList<>(questionList.size());
 
         for (QuestionBuilder qb : questionList) {
             questions.add(qb.build());
 
-            if (!InputValidation.isQuestionValid(qb)) {
-                throw new IOException();
+            if (!Validation.isQuestionValid(qb)) {
+                throw new ValidationException(ExceptionCodes.INVALID_QUESTION);
             }
         }
         return questions;
@@ -121,17 +122,17 @@ public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
 
     private void isInputValid(EditText editText, boolean isQuestion) {
         final String input = editText.getText().toString();
-        if (InputValidation.hasBannedSymbol(input)) {
+        if (Validation.hasBannedSymbol(input)) {
             editText.setError(BANNED_SYMBOL);
             return;
         }
 
-        if (isQuestion && !InputValidation.isCorrectQuestion(input)) {
+        if (isQuestion && !Validation.isCorrectQuestion(input)) {
             editText.setError("Must end with \"?\"");
             return;
         }
 
-        if (InputValidation.isStringBlank(input)) {
+        if (Validation.isStringBlank(input)) {
             editText.setError("blank input");
             return;
         }

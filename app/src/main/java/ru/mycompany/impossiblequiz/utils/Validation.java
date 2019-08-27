@@ -1,8 +1,8 @@
-package ru.mycompany.impossiblequiz;
+package ru.mycompany.impossiblequiz.utils;
 
 import ru.mycompany.impossiblequiz.models.QuestionBuilder;
 
-public class InputValidation {
+public class Validation {
     private final static String BANNED_SYMBOL = "@";
 
     public static boolean hasBannedSymbol(String str) {
@@ -23,5 +23,11 @@ public class InputValidation {
                 && isCorrectQuestion(qb.question)
                 && !isStringBlank(qb.answer)
                 && !isStringBlank(qb.question);
+    }
+
+    public static boolean isQuestionCountValid(int count){
+        final int MIN_COUNT = 2;
+        final int MAX_COUNT = 6;
+        return count >= MIN_COUNT && count <= MAX_COUNT;
     }
 }

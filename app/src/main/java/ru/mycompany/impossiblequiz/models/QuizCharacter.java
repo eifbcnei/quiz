@@ -1,26 +1,60 @@
 package ru.mycompany.impossiblequiz.models;
 
-import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.List;
 
-public class QuizCharacter {
+public class QuizCharacter implements Parcelable {
     private String name;
     private Status status;
     private List<Question> questions;
     private int curQuestionIndex;
-    private Drawable avatar;
+    private Uri avatarUri;
 
-    public QuizCharacter(String name, Status status, List<Question> questions, int curQuestionIndex, Drawable avatar) {
+    public QuizCharacter(String name, Status status, List<Question> questions, Uri avatar) {
         this.status = status;
         this.name = name;
         this.questions = questions;
         this.curQuestionIndex = 0;
-        this.avatar = avatar;
+        this.avatarUri = avatar;
     }
 
-    public Drawable getAvatar() {
-        return avatar;
+    protected QuizCharacter(Parcel in) {
+        name = in.readString();
+        questions = in.createTypedArrayList(Question.CREATOR);
+        status = Status.valueOf(in.readString());
+        avatarUri = in.readParcelable(Uri.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeTypedList(questions);
+        dest.writeString(status.name());
+        dest.writeParcelable(avatarUri, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<QuizCharacter> CREATOR = new Creator<QuizCharacter>() {
+        @Override
+        public QuizCharacter createFromParcel(Parcel in) {
+            return new QuizCharacter(in);
+        }
+
+        @Override
+        public QuizCharacter[] newArray(int size) {
+            return new QuizCharacter[size];
+        }
+    };
+
+    public Uri getAvatarUri() {
+        return avatarUri;
     }
 
     public List<Question> getQuestions() {
@@ -38,9 +72,11 @@ public class QuizCharacter {
     @Override
     public String toString() {
         return "QuizCharacter{" +
-                "status=" + status +
+                "name='" + name + '\'' +
+                ", status=" + status +
                 ", questions=" + questions +
                 ", curQuestionIndex=" + curQuestionIndex +
+                ", avatarUri=" + avatarUri +
                 '}';
     }
 
@@ -57,6 +93,7 @@ public class QuizCharacter {
             }
         }
     }
+
 
     public enum Status {
         NORMAL(255, 255, 255),

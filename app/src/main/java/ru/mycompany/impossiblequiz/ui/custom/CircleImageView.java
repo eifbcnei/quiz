@@ -44,6 +44,11 @@ public class CircleImageView extends AppCompatImageView {
     private boolean mInitialized;
     private boolean mPressed;
     private boolean mHighlightEnable;
+    private Uri mImageUri;
+
+    public Uri getmImageUri() {
+        return mImageUri;
+    }
 
     public CircleImageView(Context context) {
         this(context, null);
@@ -108,6 +113,7 @@ public class CircleImageView extends AppCompatImageView {
     @Override
     public void setImageURI(@Nullable Uri uri) {
         super.setImageURI(uri);
+        mImageUri = uri;
         setupBitmap();
     }
 

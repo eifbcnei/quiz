@@ -8,4 +8,5 @@
     <string name="enter_question_hint">enter question</string>
     <string name="wrong_input_warning">Some fields are empty!</string>
     <string name="enter_name_hint">enter name</string>
+    <string name="questions_count">questions count</string>
 </resources>

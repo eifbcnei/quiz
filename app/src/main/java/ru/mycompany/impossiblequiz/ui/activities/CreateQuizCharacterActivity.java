@@ -20,24 +20,24 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.mycompany.impossiblequiz.InputValidation;
+import ru.mycompany.impossiblequiz.ExceptionCodes;
 import ru.mycompany.impossiblequiz.R;
+import ru.mycompany.impossiblequiz.ValidationException;
 import ru.mycompany.impossiblequiz.models.Question;
 import ru.mycompany.impossiblequiz.models.QuestionBuilder;
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
 import ru.mycompany.impossiblequiz.models.QuizCharacterBuilder;
 import ru.mycompany.impossiblequiz.ui.adapters.QuestionAdapter;
 import ru.mycompany.impossiblequiz.ui.custom.CircleImageView;
-import ru.mycompany.impossiblequiz.viewmodels.QuizViewModel;
+import ru.mycompany.impossiblequiz.utils.Validation;
+import ru.mycompany.impossiblequiz.viewmodels.CreatorViewModel;
 
 public class CreateQuizCharacterActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE = 1;
     private static final int IMAGE_NOT_CHOSEN = Color.RED;
-    private static final int IMAGE_CHOSEN = Color.GREEN;
 
-
-    private QuizViewModel characterViewModel;
+    private CreatorViewModel viewModel;
     private ListView questionsList;
     private FloatingActionButton saveBtn;
     private CircleImageView avatarCiv;
@@ -51,14 +51,14 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
                     //data.getData returns the content URI for the selected Image
                     Uri selectedImage = data.getData();
                     Drawable defaultAvatar = getDrawable(R.drawable.ic_default_avatar_150dp);
-                    characterViewModel.onAvatarChanged(selectedImage, defaultAvatar);
+                    viewModel.onAvatarChanged(selectedImage, defaultAvatar);
                     break;
             }
     }
 
     private void initViewModel() {
-        characterViewModel = ViewModelProviders.of(this).get(QuizViewModel.class);
-        characterViewModel.onCIVinit(avatarCiv);
+        viewModel = ViewModelProviders.of(this).get(CreatorViewModel.class);
+        viewModel.onInit(avatarCiv);
     }
 
     private ListAdapter createInputAdapter(int elementsCount) {
@@ -106,38 +106,59 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (avatarCiv.getStrokeColor() == IMAGE_NOT_CHOSEN) {
-                    showWarning(getString(R.string.image_warning));
-                    return;
-                }
+                List<Question> usersInput;
+                QuizCharacter quizCharacter;
                 try {
+                    checkAvatar();
                     QuestionAdapter adapter = (QuestionAdapter) questionsList.getAdapter();
-                    List<Question> usersInput = adapter.getUsersInput();
+                    usersInput = adapter.getUsersInput();
                     String name = getNameInput();
-                    QuizCharacter quizCharacter = new QuizCharacterBuilder()
+                    quizCharacter = new QuizCharacterBuilder()
                             .setName(name)
                             .setQuestions(usersInput)
-                            .setAvatar(avatarCiv.getDrawable())
+                            .setAvatarUri(viewModel.getAvatarUri())
                             .createQuizCharacter();
-                    characterViewModel.onNewQuizCharacterSelected(quizCharacter);
-                } catch (Exception e) {
-                    showWarning(getString(R.string.wrong_input_warning));
+                    returnActivityResult(quizCharacter);
+                } catch (ValidationException e) {
+                    switch (e.getCode()) {
+                        case INVALID_NAME:
+                            showWarning("invalid name");
+                            break;
+                        case INVALID_AVATAR:
+                            showWarning("invalid avatar");
+                            break;
+                        case INVALID_QUESTION:
+                            showWarning("invalid question");
+                            break;
+                    }
                 }
             }
         });
     }
 
-    private String getNameInput() throws Exception {
-        EditText nameInput = findViewById(R.id.et_name);
-        if (InputValidation.isStringBlank(nameInput.getText().toString())) throw new Exception();
+    private void returnActivityResult(QuizCharacter quizCharacter) {
+        Intent data = new Intent();
+        data.putExtra(QuizCharacter.class.getSimpleName(), quizCharacter);
+        setResult(RESULT_OK, data);
+        finish();
+    }
 
-        return nameInput.getText().toString();
+    private void checkAvatar() throws ValidationException {
+        if (viewModel.getStrokeColor() == IMAGE_NOT_CHOSEN)
+            throw new ValidationException(ExceptionCodes.INVALID_AVATAR);
+    }
+
+    private String getNameInput() throws ValidationException {
+        EditText nameInput = findViewById(R.id.et_name);
+        String input = nameInput.getText().toString();
+        if (Validation.isStringBlank(input))
+            throw new ValidationException(ExceptionCodes.INVALID_NAME);
+
+        return input;
     }
 
     private void showWarning(String text) {
-        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
-        toast.show();
+        Toast warning = Toast.makeText(this, text, Toast.LENGTH_LONG);
+        warning.show();
     }
-
-
 }

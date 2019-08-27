@@ -58,9 +58,9 @@
                 android:layout_weight="1"
                 android:hint="@string/enter_name_hint"
                 android:imeOptions="actionDone"
+                android:inputType="text"
                 android:maxLength="20"
-                android:maxLines="1"
-                />
+                android:maxLines="1" />
         </LinearLayout>
 
         <View
@@ -75,28 +75,29 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <ListView
                 android:id="@+id/lv_questions_input"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/question_item">
 
             </ListView>
-
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_save_character"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/spacing_normal_16dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/ic_save_24dp" />
         </FrameLayout>
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_save_character"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/spacing_normal_16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_save_56dp" />
 </FrameLayout>
 
 

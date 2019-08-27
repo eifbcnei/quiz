@@ -1,14 +1,15 @@
 package ru.mycompany.impossiblequiz.models;
 
-import android.graphics.drawable.Drawable;
+import android.net.Uri;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuizCharacterBuilder {
     private String name;
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
     private QuizCharacter.Status status = QuizCharacter.Status.NORMAL;
-    private Drawable avatar = null;
+    private Uri avatarUri = null;
 
 
     public QuizCharacterBuilder setName(String name) {
@@ -32,12 +33,12 @@ public class QuizCharacterBuilder {
     }
 
 
-    public QuizCharacterBuilder setAvatar(Drawable avatar) {
-        this.avatar = avatar;
+    public QuizCharacterBuilder setAvatarUri(Uri avatarUri) {
+        this.avatarUri = avatarUri;
         return this;
     }
 
     public QuizCharacter createQuizCharacter() {
-        return new QuizCharacter(name, status, questions, 0, avatar);
+        return new QuizCharacter(name, status, questions, avatarUri);
     }
 }

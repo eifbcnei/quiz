@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginStart="@dimen/spacing_small_8"
+    android:layout_marginEnd="@dimen/spacing_small_8"
+    tools:context=".ui.fragments.QuestionCountPickerFragment">
+
+    <EditText
+        android:id="@+id/et_question_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_normal_16dp"
+        android:layout_marginEnd="@dimen/spacing_normal_16dp"
+        android:hint="@string/questions_count"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:maxLength="20"
+        android:maxLines="1" />
+
+</LinearLayout>
