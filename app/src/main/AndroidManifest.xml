@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.activities.CreateQuizCharacterActivity"
+            android:name=".ui.activities.CreateQuizCharacterActivity_"
             android:windowSoftInputMode="stateUnchanged|adjustPan"></activity>
-        <activity android:name=".ui.activities.QuizActivity">
+        <activity android:name=".ui.activities.QuizActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
