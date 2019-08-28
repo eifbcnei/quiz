@@ -9,4 +9,10 @@
     <string name="wrong_input_warning">Some fields are empty!</string>
     <string name="enter_name_hint">enter name</string>
     <string name="questions_count">questions count</string>
+    <string name="invalid_question_count">Invalid count. Enter from 2 to 6 questions.</string>
+    <string name="invalid_avatar">invalid avatar</string>
+    <string name="invalid_name">invalid name</string>
+    <string name="invalid_question">invalid question</string>
+    <string name="create_character">Create character</string>
+    <string name="about">About app</string>
 </resources>
