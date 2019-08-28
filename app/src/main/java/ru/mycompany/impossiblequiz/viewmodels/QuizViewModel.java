@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import ru.mycompany.impossiblequiz.AppPreferences;
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
 
 public class QuizViewModel extends ViewModel {
@@ -16,12 +15,6 @@ public class QuizViewModel extends ViewModel {
 
     public void onNewQuizCharacterSelected(QuizCharacter quizCharacter) {
         quizCharacterLiveData.setValue(quizCharacter);
-    }
-
-
-    public void onCreate() {
-        quizCharacterLiveData.setValue(AppPreferences.getLastCharacter());
-
     }
 
     public void onCheckAnswer(String answer) {

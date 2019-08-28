@@ -38,9 +38,8 @@ public class QuizActivity extends AppCompatActivity implements QuestionCountPick
     TextView questionView;
     @ViewById(R.id.ib_check)
     ImageButton checkBtn;
-    @ViewById(R.id.et_answer_input)
+    @ViewById(R.id.et_answer)
     EditText inputView;
-
 
     @Click(R.id.ib_check)
     void onCheckAnswer() {
