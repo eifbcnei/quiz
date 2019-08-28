@@ -3,12 +3,12 @@
     android:color="@android:color/darker_gray">
     <item android:id="@android:id/mask">
         <shape android:shape="oval">
-            <solid android:color="@android:color/holo_blue_dark"/>
+            <solid android:color="@android:color/white"/>
         </shape>
     </item>
     <item android:id="@android:id/background">
         <shape android:shape="oval">
-            <solid android:color="@color/colorPrimary"/>
+            <solid android:color="@color/colorAccent"/>
         </shape>
     </item>
 

@@ -10,7 +10,7 @@
         android:id="@+id/tv_question"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/textSize_large_20" />
@@ -24,14 +24,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:padding="@dimen/spacing_small_8">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:textColorHint="@android:color/darker_gray">
 
             <EditText
                 android:id="@+id/et_answer"
@@ -40,6 +41,8 @@
                 android:layout_gravity="center_vertical"
                 android:hint="@string/enter_answer_hint"
                 android:lines="1"
+                android:textColorHighlight="@android:color/white"
+                android:textColorLink="@android:color/white"
                 android:textColor="@android:color/background_light"
                 android:textColorHint="@android:color/darker_gray" />
 
@@ -50,7 +53,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/spacing_small_8"
             android:layout_marginBottom="@dimen/spacing_small_8"
-            android:background="@android:color/darker_gray" />
+            android:background="@color/divider_light" />
 
         <ImageButton
             android:id="@+id/ib_check"
