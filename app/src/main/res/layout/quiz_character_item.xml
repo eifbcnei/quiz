@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/qc_item_height">
+
+    <ru.mycompany.impossiblequiz.ui.custom.CircleImageView
+        android:id="@+id/civ_qc_avatar"
+        android:layout_width="@dimen/qc_item_avatar"
+        android:layout_height="@dimen/qc_item_avatar"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/spacing_normal_16dp"
+        android:layout_marginRight="32dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/civ_qc_avatar">
+
+        <TextView
+            android:id="@+id/tv_name_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/textSize_normal_16"
+            tools:text="Name: " />
+
+        <TextView
+            android:id="@+id/tv_name_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_name_field"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="@dimen/textSize_normal_16"
+            tools:text="Homer Simpson" />
+
+        <TextView
+            android:id="@+id/tv_difficulty_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name_field"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/textSize_normal_16"
+            tools:text="Difficulty: " />
+
+        <TextView
+            android:id="@+id/tv_difficulty_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name_value"
+            android:layout_toRightOf="@+id/tv_difficulty_field"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="@dimen/textSize_normal_16"
+            tools:text="Easy" />
+    </RelativeLayout>
+</RelativeLayout>

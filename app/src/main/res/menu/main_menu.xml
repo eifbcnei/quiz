@@ -4,6 +4,10 @@
         android:id="@+id/action_create_character"
         android:title="@string/create_character" />
     <item
+        android:id="@+id/action_select_qc"
+        android:title="@string/select_character"
+        />
+    <item
         android:id="@+id/action_about"
         android:title="@string/about" />
 </menu>

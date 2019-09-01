@@ -3,6 +3,7 @@
     package="ru.mycompany.impossiblequiz">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -11,9 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.activities.SelectQuizCharacterActivity_"></activity>
         <activity
             android:name=".ui.activities.CreateQuizCharacterActivity_"
-            android:windowSoftInputMode="stateUnchanged|adjustPan"></activity>
+            android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity android:name=".ui.activities.QuizActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

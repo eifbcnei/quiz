@@ -2,11 +2,7 @@
     <string name="app_name">ImpossibleQuiz</string>
     <string name="create_qc_hint">Time to create new character!</string>
     <string name="enter_answer_hint">enter answer</string>
-    <string name="image_warning">Image is not chosen</string>
-    <string name="pick_picture">pick picture</string>
-    <string name="save_character">save character</string>
     <string name="enter_question_hint">enter question</string>
-    <string name="wrong_input_warning">Some fields are empty!</string>
     <string name="enter_name_hint">enter name</string>
     <string name="questions_count">questions count</string>
     <string name="invalid_question_count">Invalid count. Enter from 2 to 6 questions.</string>
@@ -15,4 +11,5 @@
     <string name="invalid_question">invalid question</string>
     <string name="create_character">Create character</string>
     <string name="about">About app</string>
+    <string name="select_character">select_character</string>
 </resources>

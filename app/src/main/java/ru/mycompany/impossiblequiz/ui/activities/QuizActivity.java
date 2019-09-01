@@ -31,6 +31,8 @@ import ru.mycompany.impossiblequiz.viewmodels.QuizViewModel;
 @OptionsMenu(R.menu.main_menu)
 public class QuizActivity extends AppCompatActivity implements QuestionCountPickerFragment.InputListener {
     private static final int CREATE_QC = 1;
+    private static final int SELECT_QC = 2;
+
     private QuizViewModel characterModel;
     @ViewById(R.id.iv_character)
     ImageView characterView;
@@ -80,8 +82,21 @@ public class QuizActivity extends AppCompatActivity implements QuestionCountPick
         //TODO
     }
 
+    @OptionsItem(R.id.action_select_qc)
+    void onSelectQuizCharacter() {
+        SelectQuizCharacterActivity_.intent(this).startForResult(SELECT_QC);
+    }
+
+    @OnActivityResult(SELECT_QC)
+    void onSelected(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            QuizCharacter newQuizCharacter = data.getParcelableExtra(QuizCharacter.class.getSimpleName());
+            characterModel.onNewQuizCharacterSelected(newQuizCharacter);
+        }
+    }
+
     @OnActivityResult(CREATE_QC)
-    void onResult(int resultCode, Intent data) {
+    void onCreated(int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             QuizCharacter newQC = data.getParcelableExtra(QuizCharacter.class.getSimpleName());
             characterModel.onNewQuizCharacterSelected(newQC);

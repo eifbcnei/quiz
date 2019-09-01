@@ -10,4 +10,6 @@
 
     <dimen name="btn_normal_24">24dp</dimen>
     <dimen name="civ_large_150">150dp</dimen>
+    <dimen name="qc_item_height">120dp</dimen>
+    <dimen name="qc_item_avatar">72dp</dimen>
 </resources>
