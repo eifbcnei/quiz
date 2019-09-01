@@ -8,8 +8,9 @@
     <dimen name="textSize_normal_16">16sp</dimen>
     <dimen name="textSize_large_20">20sp</dimen>
 
-    <dimen name="btn_normal_24">24dp</dimen>
+    <dimen name="btn_normal_32">32dp</dimen>
     <dimen name="civ_large_150">150dp</dimen>
     <dimen name="qc_item_height">120dp</dimen>
     <dimen name="qc_item_avatar">72dp</dimen>
+    <dimen name="spacing_huge_32">32dp</dimen>
 </resources>

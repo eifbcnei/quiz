@@ -13,6 +13,14 @@ public class QuizCharacter implements Parcelable {
     private int curQuestionIndex;
     private Uri avatarUri;
 
+    public String getName() {
+        return name;
+    }
+
+    public int getQuestionCount() {
+        return questions.size();
+    }
+
     public QuizCharacter(String name, Status status, List<Question> questions, Uri avatar) {
         this.status = status;
         this.name = name;

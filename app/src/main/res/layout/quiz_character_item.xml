@@ -13,10 +13,12 @@
         android:layout_marginRight="32dp" />
 
     <RelativeLayout
+        android:id="@+id/rl_labels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/spacing_huge_32"
         android:layout_toRightOf="@id/civ_qc_avatar">
 
         <TextView
@@ -57,4 +59,13 @@
             android:textSize="@dimen/textSize_normal_16"
             tools:text="Easy" />
     </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/btn_select"
+        android:layout_width="@dimen/btn_normal_32"
+        android:layout_height="@dimen/btn_normal_32"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/rl_labels"
+        android:background="@drawable/btn_round_bg"
+        android:src="@drawable/ic_check_32dp" />
 </RelativeLayout>
