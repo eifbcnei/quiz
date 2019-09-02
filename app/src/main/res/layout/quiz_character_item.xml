@@ -9,7 +9,7 @@
         android:layout_width="@dimen/qc_item_avatar"
         android:layout_height="@dimen/qc_item_avatar"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/spacing_normal_16dp"
+        android:layout_marginLeft="@dimen/spacing_normal_16"
         android:layout_marginRight="32dp" />
 
     <RelativeLayout

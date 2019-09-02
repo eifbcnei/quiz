@@ -1,6 +1,5 @@
 package ru.mycompany.impossiblequiz.ui.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +7,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.mycompany.impossiblequiz.R;
@@ -18,13 +19,10 @@ import ru.mycompany.impossiblequiz.ui.custom.CircleImageView;
 import ru.mycompany.impossiblequiz.utils.Utils;
 
 public class QuizCharacterAdapter extends RecyclerView.Adapter<QuizCharacterAdapter.ViewHolder> {
-    private LayoutInflater inflater;
-    private List<QuizCharacter> quizCharacters;
+    private List<QuizCharacter> quizCharacters=new ArrayList<>();
     private QuizCharacterSelector selector;
 
-    public QuizCharacterAdapter(Context context, List<QuizCharacter> quizCharacters, QuizCharacterSelector selector) {
-        inflater = LayoutInflater.from(context);
-        this.quizCharacters = quizCharacters;
+    public QuizCharacterAdapter(QuizCharacterSelector selector) {
         this.selector = selector;
     }
 
@@ -32,7 +30,7 @@ public class QuizCharacterAdapter extends RecyclerView.Adapter<QuizCharacterAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.quiz_character_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.quiz_character_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -53,6 +51,33 @@ public class QuizCharacterAdapter extends RecyclerView.Adapter<QuizCharacterAdap
     @Override
     public int getItemCount() {
         return quizCharacters.size();
+    }
+
+    public void updateData(final List<QuizCharacter> newData) {
+        DiffUtil.Callback callback = new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return quizCharacters.size();
+            }
+
+            @Override
+            public int getNewListSize() {
+                return newData.size();
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                return quizCharacters.get(oldItemPosition) == newData.get(newItemPosition);
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                return quizCharacters.get(oldItemPosition).equals(newData.get(newItemPosition));
+            }
+        };
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(callback);
+        quizCharacters = newData;
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
