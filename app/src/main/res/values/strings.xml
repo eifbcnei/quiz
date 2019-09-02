@@ -12,4 +12,7 @@
     <string name="create_character">Create character</string>
     <string name="about">About app</string>
     <string name="select_character">select_character</string>
+    <string name="mode_easy">Easy</string>
+    <string name="mode_medium">Medium</string>
+    <string name="mode_extreme">Extreme</string>
 </resources>
