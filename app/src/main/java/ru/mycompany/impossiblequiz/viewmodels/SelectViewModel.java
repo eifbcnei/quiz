@@ -52,7 +52,7 @@ public class SelectViewModel extends ViewModel {
         final String EASY = Resources.getSystem().getString(R.string.mode_easy);
         List<QuizCharacter> qcList = visibleQuizCharacters.getValue();
         for (QuizCharacter qc : quizCharacters.getValue()) {
-            if (Utils.getDifficulty(qc.getQuestionCount()) == EASY) {
+            if (Utils.getDifficulty(qc.getQuestionCount()).equals(EASY)) {
                 if (checked) {
                     qcList.remove(qc);
                 } else {
@@ -67,7 +67,7 @@ public class SelectViewModel extends ViewModel {
         final String MEDIUM = Resources.getSystem().getString(R.string.mode_medium);
         List<QuizCharacter> qcList = visibleQuizCharacters.getValue();
         for (QuizCharacter qc : quizCharacters.getValue()) {
-            if (Utils.getDifficulty(qc.getQuestionCount()) == MEDIUM) {
+            if (Utils.getDifficulty(qc.getQuestionCount()).equals(MEDIUM)) {
                 if (checked) {
                     qcList.remove(qc);
                 } else {
@@ -82,7 +82,7 @@ public class SelectViewModel extends ViewModel {
         final String EXTREME = Resources.getSystem().getString(R.string.mode_extreme);
         List<QuizCharacter> qcList = visibleQuizCharacters.getValue();
         for (QuizCharacter qc : quizCharacters.getValue()) {
-            if (Utils.getDifficulty(qc.getQuestionCount()) == EXTREME) {
+            if (Utils.getDifficulty(qc.getQuestionCount()).equals(EXTREME)) {
                 if (checked) {
                     qcList.remove(qc);
                 } else {
