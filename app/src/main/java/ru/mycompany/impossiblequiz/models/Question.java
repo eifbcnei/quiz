@@ -3,6 +3,9 @@ package ru.mycompany.impossiblequiz.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+
+@Entity
 public class Question implements Parcelable {
     private final String question;
     private final String answer;

@@ -4,14 +4,78 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class QuizCharacter implements Parcelable {
+    @PrimaryKey(autoGenerate = true)
+    private long id;
     private String name;
-    private Status status;
+    @TypeConverters({QuestionConverter.class})
     private List<Question> questions;
-    private int curQuestionIndex;
+    @TypeConverters({UriConverter.class})
     private Uri avatarUri;
+
+    public long getId() {
+        return id;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public static class UriConverter {
+        @TypeConverter
+        public String fromUri(Uri uri) {
+            return uri.toString();
+        }
+
+        @TypeConverter
+        public Uri toUri(String string) {
+            return Uri.parse(string);
+        }
+    }
+
+    public static class QuestionConverter {
+        @TypeConverter
+        public String fromQuestions(List<Question> questions) {
+            StringBuilder result = new StringBuilder();
+            for (Question question : questions) {
+                result.append(String.format("{%s!%s}", question.getQuestion(), question.getAnswer()));
+                result.append("@");
+            }
+            result.deleteCharAt(result.lastIndexOf("@"));
+            return result.toString();
+        }
+
+        @TypeConverter
+        public List<Question> toQuestions(String data) {
+            String[] str = data.split("@");
+            List<Question> questions = new ArrayList<>();
+            for (String s : str) {
+                s = s.replace("{", "").replace("}", "");
+                String[] strings = s.split("!");
+                questions.add(new Question(strings[0], strings[1]));
+            }
+            return questions;
+        }
+    }
+
+    @Ignore
+    private Status status = Status.NORMAL;
+    @Ignore
+    private int curQuestionIndex = 0;
 
     public String getName() {
         return name;
@@ -21,12 +85,10 @@ public class QuizCharacter implements Parcelable {
         return questions.size();
     }
 
-    public QuizCharacter(String name, Status status, List<Question> questions, Uri avatar) {
-        this.status = status;
+    public QuizCharacter(String name, List<Question> questions, Uri avatarUri) {
         this.name = name;
         this.questions = questions;
-        this.curQuestionIndex = 0;
-        this.avatarUri = avatar;
+        this.avatarUri = avatarUri;
     }
 
     protected QuizCharacter(Parcel in) {
@@ -63,10 +125,6 @@ public class QuizCharacter implements Parcelable {
 
     public Uri getAvatarUri() {
         return avatarUri;
-    }
-
-    public List<Question> getQuestions() {
-        return questions;
     }
 
     public String getCurrentQuestion() {

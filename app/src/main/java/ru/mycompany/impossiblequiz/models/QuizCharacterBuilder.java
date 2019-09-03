@@ -8,7 +8,6 @@ import java.util.List;
 public class QuizCharacterBuilder {
     private String name;
     private List<Question> questions = new ArrayList<>();
-    private QuizCharacter.Status status = QuizCharacter.Status.NORMAL;
     private Uri avatarUri = null;
 
 
@@ -27,10 +26,6 @@ public class QuizCharacterBuilder {
         return this;
     }
 
-    public QuizCharacterBuilder setStatus(QuizCharacter.Status status) {
-        this.status = status;
-        return this;
-    }
 
 
     public QuizCharacterBuilder setAvatarUri(Uri avatarUri) {
@@ -39,6 +34,6 @@ public class QuizCharacterBuilder {
     }
 
     public QuizCharacter createQuizCharacter() {
-        return new QuizCharacter(name, status, questions, avatarUri);
+        return new QuizCharacter(name, questions, avatarUri);
     }
 }
