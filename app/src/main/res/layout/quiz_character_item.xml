@@ -26,9 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
+            android:text="Name: "
             android:textColor="@android:color/black"
-            android:textSize="@dimen/textSize_normal_16"
-            tools:text="Name: " />
+            android:textSize="@dimen/textSize_normal_16" />
 
         <TextView
             android:id="@+id/tv_name_value"
@@ -45,9 +45,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name_field"
             android:fontFamily="sans-serif-medium"
+            android:text="Difficulty: "
             android:textColor="@android:color/black"
-            android:textSize="@dimen/textSize_normal_16"
-            tools:text="Difficulty: " />
+            android:textSize="@dimen/textSize_normal_16" />
 
         <TextView
             android:id="@+id/tv_difficulty_value"
@@ -65,7 +65,17 @@
         android:layout_width="@dimen/btn_normal_32"
         android:layout_height="@dimen/btn_normal_32"
         android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/spacing_normal_16"
         android:layout_toRightOf="@id/rl_labels"
         android:background="@drawable/btn_round_bg"
         android:src="@drawable/ic_check_32dp" />
+
+    <ImageButton
+        android:id="@+id/btn_save_image"
+        android:layout_width="@dimen/btn_normal_32"
+        android:layout_height="@dimen/btn_normal_32"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/btn_select"
+        android:background="@drawable/btn_round_bg"
+        android:src="@drawable/ic_save_32dp" />
 </RelativeLayout>
