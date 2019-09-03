@@ -4,21 +4,30 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
+import ru.mycompany.impossiblequiz.storage.Repository;
 
 public class AppPreferences {
-    private static final String LAST_QUIZCHARACTER = "LAST_CHARACTER_INDEX";
+    private static final SharedPreferences instance = PreferenceManager.getDefaultSharedPreferences(App.applicationContext());
+    private static final String LAST_QUIZ_CHARACTER = "LAST_CHARACTER_INDEX";
+    private static final String WAS_INITED = "WAS_INITED";
+
+
+    public static boolean isInited() {
+        return instance.getBoolean(WAS_INITED, false);
+    }
+
+    public static void setWasInited(){
+        instance.edit().putBoolean(WAS_INITED,true);
+    }
 
     private AppPreferences() {
     }
 
-    private static final SharedPreferences instance = PreferenceManager.getDefaultSharedPreferences(App.applicationContext());
-    private static DatabaseHelper dbHelper = new DatabaseHelper(App.applicationContext());
-
-    public static QuizCharacter getLastCharacter() {
-        return dbHelper.getQuizCharacterByIndex(instance.getInt(LAST_QUIZCHARACTER, 0));
+    public static SharedPreferences getInstance() {
+        return instance;
     }
 
-    public static void saveQuizCharacter(QuizCharacter quizCharacter) {
-        dbHelper.saveQuizCharacter(quizCharacter);
+    public static QuizCharacter get() {
+        return Repository.getInstance().getById(instance.getInt(LAST_QUIZ_CHARACTER, 0));
     }
 }

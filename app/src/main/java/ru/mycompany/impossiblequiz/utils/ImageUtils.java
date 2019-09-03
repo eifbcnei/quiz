@@ -1,11 +1,42 @@
 package ru.mycompany.impossiblequiz.utils;
 
+import android.content.ContentResolver;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+
+import androidx.annotation.AnyRes;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import ru.mycompany.impossiblequiz.App;
 
 public class ImageUtils {
+    public static final Uri getUriToDrawable(
+            @AnyRes int drawableId) {
+        Resources res = App.applicationContext().getResources();
+        Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + res.getResourcePackageName(drawableId)
+                + '/' + res.getResourceTypeName(drawableId)
+                + '/' + res.getResourceEntryName(drawableId));
+        return imageUri;
+    }
+
+
+    public static Drawable getDrawableFromUri(Uri uri) {
+        try {
+            InputStream inputStream = App.applicationContext().getContentResolver().openInputStream(uri);
+            Drawable result = Drawable.createFromStream(inputStream, uri.toString());
+            return result;
+        } catch (FileNotFoundException e) {
+            return null;
+        }
+    }
+
     public static boolean areDrawablesIdentical(Drawable drawableA, Drawable drawableB) {
         Drawable.ConstantState stateA = drawableA.getConstantState();
         Drawable.ConstantState stateB = drawableB.getConstantState();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,14 +32,51 @@
             android:layout_marginBottom="@dimen/spacing_small_8"
             android:paddingLeft="@dimen/spacing_normal_16"
             android:paddingRight="@dimen/spacing_normal_16"
-            android:visibility="gone">
+            android:visibility="visible">
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_mode_easy"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="true"
+                android:text="@string/mode_easy"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="@color/colorPrimary"
+                app:closeIconTint="@android:color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_mode_medium"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="true"
+                android:text="@string/mode_medium"
+                android:textColor="@android:color/white"
+
+                app:chipBackgroundColor="@color/colorPrimary"
+                app:closeIconTint="@android:color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_mode_extreme"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="true"
+                android:text="@string/mode_extreme"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="@color/colorPrimary"
+                app:closeIconTint="@android:color/white" />
         </com.google.android.material.chip.ChipGroup>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_qc_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/spacing_small_8"
             tools:listitem="@layout/quiz_character_item">
 
 

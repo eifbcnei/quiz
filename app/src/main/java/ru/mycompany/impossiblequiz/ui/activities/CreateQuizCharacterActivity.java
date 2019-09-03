@@ -21,8 +21,6 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,16 +68,6 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
         return getDrawable(R.drawable.ic_default_avatar_150dp);
     }
 
-    private Drawable getDrawableFromUri() {
-        try {
-            Uri uri = viewModel.getSelectedAvatar().getValue();
-            InputStream inputStream = getContentResolver().openInputStream(uri);
-            Drawable result = Drawable.createFromStream(inputStream, uri.toString());
-            return result;
-        } catch (FileNotFoundException e) {
-            return null;
-        }
-    }
 
     @AfterViews
     void initViewModel() {
@@ -88,7 +76,7 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
             @Override
             public void onChanged(Uri uri) {
                 avatarCiv.setImageURI(uri);
-                if (ImageUtils.areDrawablesIdentical(getDrawableFromUri(), getDefaultAvatar())) {
+                if (ImageUtils.areDrawablesIdentical(ImageUtils.getDrawableFromUri(uri), getDefaultAvatar())) {
                     avatarCiv.setStrokeColor(IMAGE_NOT_CHOSEN);
                 } else {
                     avatarCiv.setStrokeColor(IMAGE_CHOSEN);
