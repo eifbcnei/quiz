@@ -5,7 +5,7 @@
     <string name="enter_question_hint">enter question</string>
     <string name="enter_name_hint">enter name</string>
     <string name="questions_count">questions count</string>
-    <string name="invalid_question_count">Invalid count. Enter from 2 to 6 questions.</string>
+    <string name="invalid_question_count">Invalid count. Enter from 3 to 6 questions.</string>
     <string name="invalid_avatar">invalid avatar</string>
     <string name="invalid_name">invalid name</string>
     <string name="invalid_question">invalid question</string>

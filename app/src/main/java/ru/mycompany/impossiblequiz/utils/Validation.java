@@ -26,7 +26,7 @@ public class Validation {
     }
 
     public static boolean isQuestionCountValid(int count){
-        final int MIN_COUNT = 2;
+        final int MIN_COUNT = 3;
         final int MAX_COUNT = 6;
         return count >= MIN_COUNT && count <= MAX_COUNT;
     }
