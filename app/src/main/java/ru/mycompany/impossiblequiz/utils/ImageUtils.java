@@ -16,8 +16,7 @@ import java.io.InputStream;
 import ru.mycompany.impossiblequiz.App;
 
 public class ImageUtils {
-    public static final Uri getUriToDrawable(
-            @AnyRes int drawableId) {
+    public static final Uri getResIdToDrawable(@AnyRes int drawableId) {
         Resources res = App.applicationContext().getResources();
         Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                 "://" + res.getResourcePackageName(drawableId)

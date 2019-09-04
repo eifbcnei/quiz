@@ -46,7 +46,7 @@ public class QuizCharacterAdapter extends RecyclerView.Adapter<QuizCharacterAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final QuizCharacter qc = quizCharacters.get(position);
         holder.avatar_civ.setImageURI(qc.getAvatarUri());
-        holder.name_tv.setText(Long.toString(qc.getId()));
+        holder.name_tv.setText(qc.getName());
         holder.difficulty_tv.setText(Utils.getDifficulty(qc.getQuestionCount()));
         holder.select_btn.setOnClickListener(new View.OnClickListener() {
             @Override

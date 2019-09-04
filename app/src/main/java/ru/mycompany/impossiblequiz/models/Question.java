@@ -10,9 +10,9 @@ public class Question implements Parcelable {
     private final String question;
     private final String answer;
 
-    public Question(String question, String answers) {
+    public Question(String question, String answer) {
         this.question = question;
-        this.answer = answers;
+        this.answer = answer;
     }
 
 
