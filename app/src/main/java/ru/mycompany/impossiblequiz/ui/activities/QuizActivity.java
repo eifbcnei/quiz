@@ -3,6 +3,8 @@ package ru.mycompany.impossiblequiz.ui.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -48,6 +50,13 @@ public class QuizActivity extends AppCompatActivity implements QuestionCountPick
         String answer = inputView.getText().toString();
         inputView.setText("");
         characterModel.onCheckAnswer(answer);
+        hideKeyboard();
+    }
+
+    private void hideKeyboard() {
+        View focus = getCurrentFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(focus.getWindowToken(), 0);
     }
 
     @AfterViews
