@@ -9,6 +9,7 @@
     <dimen name="textSize_large_20">20sp</dimen>
 
     <dimen name="btn_normal_32">32dp</dimen>
+    <dimen name="btn_qc_item_38dp">38dp</dimen>
     <dimen name="civ_large_150">150dp</dimen>
     <dimen name="qc_item_height">120dp</dimen>
     <dimen name="qc_item_avatar">72dp</dimen>

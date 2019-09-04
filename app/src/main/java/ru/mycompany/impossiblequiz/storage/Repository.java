@@ -26,13 +26,21 @@ public class Repository {
 
     private Repository() {
         dataBase = App.getInstance().getDataBase();
-        if (!AppPreferences.isInited()) {
+        if (!AppPreferences.isInitialized()) {
             defaultInit();
-            AppPreferences.setWasInited();
+            AppPreferences.setWasInitialized();
         }
     }
 
     public QuizCharacter getById(int id) {
+        if (!(cache.size() > id)) return new QuizCharacterBuilder()
+                .setName("Squidward")
+                .setAvatarUri(ImageUtils.getResIdToDrawable(R.drawable.squidward))
+                .addQuestion(new Question("Who is the most despicable neighbour?", "Sponge Bob"))
+                .addQuestion(new Question("Who is the second most despicable neighbour?", "Patrick"))
+                .addQuestion(new Question("What is the best thing in the world?", "Art"))
+                .createQuizCharacter();
+
         return cache.get(id);
     }
 
@@ -74,7 +82,7 @@ public class Repository {
                         .setName("Giorno Giovanna")
                         .setAvatarUri(ImageUtils.getResIdToDrawable(R.drawable.giorno))
                         .addQuestion(new Question("Who is my father?", "Dio"))
-                        .addQuestion(new Question("What do i hate the most?","Drugs"))
+                        .addQuestion(new Question("What do i hate the most?", "Drugs"))
                         .addQuestion(new Question("What is my stand name?", "Gold experience"))
                         .addQuestion(new Question("Who am i?", "Boss"))
                         .addQuestion(new Question("Who is my favourite musician?", "Jeff Beck"))

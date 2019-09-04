@@ -4,14 +4,20 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import ru.mycompany.impossiblequiz.AppPreferences;
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
+import ru.mycompany.impossiblequiz.storage.Repository;
 
 public class QuizViewModel extends ViewModel {
     private final MutableLiveData<QuizCharacter> quizCharacterLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isQuizCompleted = new MutableLiveData<>();
 
     public QuizViewModel() {
-        quizCharacterLiveData.setValue(AppPreferences.get());
+        isQuizCompleted.setValue(false);
+        quizCharacterLiveData.setValue(Repository.getInstance().getById(0));
+    }
+
+    public MutableLiveData<Boolean> getIsQuizCompleted() {
+        return isQuizCompleted;
     }
 
     public LiveData<QuizCharacter> getQuizCharacterLiveData() {
@@ -25,6 +31,9 @@ public class QuizViewModel extends ViewModel {
     public void onCheckAnswer(String answer) {
         QuizCharacter quizCharacter = quizCharacterLiveData.getValue();
         quizCharacter.checkAnswer(answer);
+        if (quizCharacter.getQuestionCount() == quizCharacter.getCurQuestionIndex()) {
+            isQuizCompleted.setValue(true);
+        }
         quizCharacterLiveData.setValue(quizCharacter);
     }
 }

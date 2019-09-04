@@ -24,9 +24,9 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.mycompany.impossiblequiz.ExceptionCodes;
 import ru.mycompany.impossiblequiz.R;
-import ru.mycompany.impossiblequiz.ValidationException;
+import ru.mycompany.impossiblequiz.exceptions.ExceptionCodes;
+import ru.mycompany.impossiblequiz.exceptions.ValidationException;
 import ru.mycompany.impossiblequiz.models.Question;
 import ru.mycompany.impossiblequiz.models.QuestionBuilder;
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
@@ -116,6 +116,7 @@ public class CreateQuizCharacterActivity extends AppCompatActivity {
                     .setAvatarUri(viewModel.getSelectedAvatar().getValue())
                     .createQuizCharacter();
 
+            viewModel.saveData(quizCharacter);
             returnActivityResult(quizCharacter);
         } catch (ValidationException e) {
             switch (e.getCode()) {

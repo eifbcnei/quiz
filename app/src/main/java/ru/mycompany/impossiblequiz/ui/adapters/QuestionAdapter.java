@@ -17,9 +17,9 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.mycompany.impossiblequiz.ExceptionCodes;
 import ru.mycompany.impossiblequiz.R;
-import ru.mycompany.impossiblequiz.ValidationException;
+import ru.mycompany.impossiblequiz.exceptions.ExceptionCodes;
+import ru.mycompany.impossiblequiz.exceptions.ValidationException;
 import ru.mycompany.impossiblequiz.models.Question;
 import ru.mycompany.impossiblequiz.models.QuestionBuilder;
 import ru.mycompany.impossiblequiz.utils.Validation;

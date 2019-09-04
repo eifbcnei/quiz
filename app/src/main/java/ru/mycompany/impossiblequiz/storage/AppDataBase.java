@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase;
 
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
 
-@Database(entities = {QuizCharacter.class}, version = 1)
+@Database(entities = {QuizCharacter.class}, version = 1, exportSchema = false)
 abstract public class AppDataBase extends RoomDatabase {
     public abstract QuizCharacterDao qcDao();
 }

@@ -12,6 +12,9 @@ import androidx.room.TypeConverters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import ru.mycompany.impossiblequiz.utils.Utils;
 
 @Entity
 public class QuizCharacter implements Parcelable {
@@ -26,7 +29,16 @@ public class QuizCharacter implements Parcelable {
     private List<Question> questions;
     @TypeConverters({UriConverter.class})
     private Uri avatarUri;
+    @Ignore
+    private String difficultyMode;
+    @Ignore
+    private Status status = Status.NORMAL;
+    @Ignore
+    private int curQuestionIndex = 0;
 
+    public String getDifficultyMode() {
+        return difficultyMode;
+    }
 
     public long getId() {
         return id;
@@ -41,7 +53,6 @@ public class QuizCharacter implements Parcelable {
     }
 
     public static class UriConverter {
-
         @TypeConverter
         public String fromUri(Uri uri) {
             return uri.toString();
@@ -79,11 +90,6 @@ public class QuizCharacter implements Parcelable {
         }
     }
 
-    @Ignore
-    private Status status = Status.NORMAL;
-    @Ignore
-    private int curQuestionIndex = 0;
-
     public String getName() {
         return name;
     }
@@ -96,20 +102,20 @@ public class QuizCharacter implements Parcelable {
         this.name = name;
         this.questions = questions;
         this.avatarUri = avatarUri;
+        this.difficultyMode = Utils.getDifficulty(questions.size());
     }
 
     protected QuizCharacter(Parcel in) {
         name = in.readString();
         questions = in.createTypedArrayList(Question.CREATOR);
-        status = Status.valueOf(in.readString());
         avatarUri = in.readParcelable(Uri.class.getClassLoader());
+        difficultyMode = Utils.getDifficulty(questions.size());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeTypedList(questions);
-        dest.writeString(status.name());
         dest.writeParcelable(avatarUri, flags);
     }
 
@@ -135,6 +141,7 @@ public class QuizCharacter implements Parcelable {
     }
 
     public String getCurrentQuestion() {
+        if (curQuestionIndex == questions.size()) return null;
         return questions.get(curQuestionIndex).getQuestion();
     }
 
@@ -145,20 +152,20 @@ public class QuizCharacter implements Parcelable {
     @Override
     public String toString() {
         return "QuizCharacter{" +
-                "name='" + name + '\'' +
-                ", status=" + status +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", questions=" + questions +
-                ", curQuestionIndex=" + curQuestionIndex +
                 ", avatarUri=" + avatarUri +
+                ", difficultyMode='" + difficultyMode + '\'' +
+                ", status=" + status +
+                ", curQuestionIndex=" + curQuestionIndex +
                 '}';
     }
 
     public void checkAnswer(String answer) {
         boolean isCorrect = questions.get(curQuestionIndex).isAnswerCorrect(answer);
         if (isCorrect) {
-            if (curQuestionIndex != questions.size() - 1) {
-                curQuestionIndex++;
-            }
+            curQuestionIndex++;
         } else {
             nextStatus();
             if (status == Status.NORMAL) {
@@ -167,6 +174,24 @@ public class QuizCharacter implements Parcelable {
         }
     }
 
+    public int getCurQuestionIndex() {
+        return curQuestionIndex;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QuizCharacter that = (QuizCharacter) o;
+        return name.equals(that.name) &&
+                questions.equals(that.questions) &&
+                avatarUri.equals(that.avatarUri);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, questions, avatarUri);
+    }
 
     public enum Status {
         NORMAL(255, 255, 255),
@@ -185,7 +210,7 @@ public class QuizCharacter implements Parcelable {
         }
     }
 
-    public void nextStatus() {
+    private void nextStatus() {
         if (status.ordinal() < Status.values().length - 1) {
             status = Status.values()[status.ordinal() + 1];
         } else {

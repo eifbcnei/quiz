@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/tv_name_field"
             android:fontFamily="sans-serif-medium"
+            android:maxLength="15"
             android:textSize="@dimen/textSize_normal_16"
             tools:text="Homer Simpson" />
 
@@ -57,25 +58,27 @@
             android:layout_toRightOf="@+id/tv_difficulty_field"
             android:fontFamily="sans-serif-medium"
             android:textSize="@dimen/textSize_normal_16"
-            tools:text="Easy" />
+            tools:text="Extreme" />
     </RelativeLayout>
 
     <ImageButton
         android:id="@+id/btn_select"
-        android:layout_width="@dimen/btn_normal_32"
-        android:layout_height="@dimen/btn_normal_32"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/spacing_normal_16"
-        android:layout_toRightOf="@id/rl_labels"
+        android:layout_width="@dimen/btn_qc_item_38dp"
+        android:layout_height="@dimen/btn_qc_item_38dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/spacing_normal_16"
+        android:layout_toLeftOf="@+id/btn_save_image"
         android:background="@drawable/btn_round_bg"
         android:src="@drawable/ic_check_32dp" />
 
     <ImageButton
         android:id="@+id/btn_save_image"
-        android:layout_width="@dimen/btn_normal_32"
-        android:layout_height="@dimen/btn_normal_32"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/btn_select"
+        android:layout_width="@dimen/btn_qc_item_38dp"
+        android:layout_height="@dimen/btn_qc_item_38dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/spacing_normal_16"
+        android:layout_alignParentRight="true"
         android:background="@drawable/btn_round_bg"
         android:src="@drawable/ic_save_32dp" />
 </RelativeLayout>

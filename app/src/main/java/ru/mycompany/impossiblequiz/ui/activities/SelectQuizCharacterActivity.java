@@ -25,7 +25,7 @@ import ru.mycompany.impossiblequiz.ui.adapters.QuizCharacterSelector;
 import ru.mycompany.impossiblequiz.viewmodels.SelectViewModel;
 
 @EActivity(R.layout.activity_select_quiz_character)
-public class SelectQuizCharacterActivity extends AppCompatActivity implements QuizCharacterSelector{
+public class SelectQuizCharacterActivity extends AppCompatActivity implements QuizCharacterSelector {
     @ViewById(R.id.rv_qc_list)
     RecyclerView recyclerView;
 
@@ -59,21 +59,21 @@ public class SelectQuizCharacterActivity extends AppCompatActivity implements Qu
         easy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                viewModel.filterEasyMode(isChecked);
+                viewModel.filterDifficultyMode(isChecked, getString(R.string.mode_easy));
             }
         });
         Chip medium = findViewById(R.id.chip_mode_medium);
         medium.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                viewModel.filterMediumMode(isChecked);
+                viewModel.filterDifficultyMode(isChecked, getString(R.string.mode_medium));
             }
         });
         Chip extreme = findViewById(R.id.chip_mode_extreme);
         extreme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                viewModel.filterExtremeMode(isChecked);
+                viewModel.filterDifficultyMode(isChecked, getString(R.string.mode_extreme));
             }
         });
     }
@@ -86,7 +86,4 @@ public class SelectQuizCharacterActivity extends AppCompatActivity implements Qu
         setResult(RESULT_OK, data);
         finish();
     }
-
-
-
 }

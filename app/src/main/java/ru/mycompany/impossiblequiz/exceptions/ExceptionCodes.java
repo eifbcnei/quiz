@@ -1,4 +1,4 @@
-package ru.mycompany.impossiblequiz;
+package ru.mycompany.impossiblequiz.exceptions;
 
 public enum ExceptionCodes {
 

@@ -17,7 +17,7 @@
         android:hint="@string/questions_count"
         android:imeOptions="actionDone"
         android:inputType="number"
-        android:maxLength="20"
+        android:maxLength="1"
         android:maxLines="1" />
 
 </LinearLayout>

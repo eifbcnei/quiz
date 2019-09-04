@@ -1,10 +1,12 @@
 package ru.mycompany.impossiblequiz.ui.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -12,8 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -34,6 +40,8 @@ import ru.mycompany.impossiblequiz.viewmodels.QuizViewModel;
 public class QuizActivity extends AppCompatActivity implements QuestionCountPickerFragment.InputListener {
     private static final int CREATE_QC = 1;
     private static final int SELECT_QC = 2;
+    private static final int READ_STORAGE_PERMISSION_REQUEST_CODE = 100;
+    private static final int PERMISSION_REQUEST_CODE = 200;
 
     private QuizViewModel characterModel;
     @ViewById(R.id.iv_character)
@@ -50,23 +58,62 @@ public class QuizActivity extends AppCompatActivity implements QuestionCountPick
         String answer = inputView.getText().toString();
         inputView.setText("");
         characterModel.onCheckAnswer(answer);
-        hideKeyboard();
     }
 
-    private void hideKeyboard() {
-        View focus = getCurrentFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(focus.getWindowToken(), 0);
+    @AfterViews
+    void getRequiredPermissions() {
+        if (!checkPermissionForWriteExternalStorage()) requestPermissionForWriteExternalStorage();
+        if (!checkPermissionForReadExternalStorage()) requestPermissionForReadExternalStorage();
+    }
+
+    public boolean checkPermissionForReadExternalStorage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int result = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+            return result == PackageManager.PERMISSION_GRANTED;
+        }
+        return false;
+    }
+
+    public void requestPermissionForReadExternalStorage() {
+        try {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    READ_STORAGE_PERMISSION_REQUEST_CODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean checkPermissionForWriteExternalStorage() {
+        int result = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermissionForWriteExternalStorage() {
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE))
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+
     }
 
     @AfterViews
     void initViewModel() {
         characterModel = ViewModelProviders.of(this).get(QuizViewModel.class);
-
         characterModel.getQuizCharacterLiveData().observe(this, new Observer<QuizCharacter>() {
             @Override
             public void onChanged(QuizCharacter quizCharacter) {
                 updateQuiz(quizCharacter);
+            }
+        });
+        characterModel.getIsQuizCompleted().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isCompleted) {
+                if (isCompleted)
+                    Snackbar.make(inputView, getString(R.string.succes_message), Snackbar.LENGTH_LONG)
+                            .setAction("Select", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    onSelectQuizCharacter();
+                                }
+                            }).show();
             }
         });
     }
@@ -75,7 +122,6 @@ public class QuizActivity extends AppCompatActivity implements QuestionCountPick
     private void updateQuiz(QuizCharacter quizCharacter) {
         questionView.setText(quizCharacter.getCurrentQuestion());
         characterView.setImageURI(characterModel.getQuizCharacterLiveData().getValue().getAvatarUri());
-
         QuizCharacter.Status curStatus = quizCharacter.getStatus();
         characterView.setColorFilter(Color.rgb(curStatus.red, curStatus.green, curStatus.blue), PorterDuff.Mode.MULTIPLY);
     }
@@ -84,11 +130,6 @@ public class QuizActivity extends AppCompatActivity implements QuestionCountPick
     void createQC() {
         QuestionCountPickerFragment fr = new QuestionCountPickerFragment();
         fr.show(getSupportFragmentManager(), "QuestionNumberDialog");
-    }
-
-    @OptionsItem(R.id.action_about)
-    void aboutApp() {
-        //TODO
     }
 
     @OptionsItem(R.id.action_select_qc)

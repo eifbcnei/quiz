@@ -1,4 +1,4 @@
-package ru.mycompany.impossiblequiz;
+package ru.mycompany.impossiblequiz.exceptions;
 
 public class ValidationException extends Exception {
     private ExceptionCodes code;

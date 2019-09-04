@@ -6,6 +6,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import ru.mycompany.impossiblequiz.models.QuizCharacter;
+import ru.mycompany.impossiblequiz.storage.Repository;
+
 public class CreatorViewModel extends ViewModel {
     private MutableLiveData<Uri> selectedAvatar = new MutableLiveData<>();
 
@@ -15,5 +18,9 @@ public class CreatorViewModel extends ViewModel {
 
     public LiveData<Uri> getSelectedAvatar() {
         return selectedAvatar;
+    }
+
+    public void saveData(QuizCharacter quizCharacter) {
+        Repository.getInstance().insert(quizCharacter);
     }
 }

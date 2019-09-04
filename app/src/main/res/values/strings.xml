@@ -10,7 +10,6 @@
     <string name="invalid_name">invalid name</string>
     <string name="invalid_question">invalid question</string>
     <string name="create_character">Create character</string>
-    <string name="about">About app</string>
     <string name="select_character">Select character</string>
     <string name="mode_easy">Easy</string>
     <string name="mode_medium">Medium</string>
@@ -21,4 +20,5 @@
     <string name="questions_number_hint">Enter number of questions:</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="succes_message">You know everything about this character! Try picking another!</string>
 </resources>
