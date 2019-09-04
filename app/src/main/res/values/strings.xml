@@ -15,4 +15,11 @@
     <string name="mode_easy">Easy</string>
     <string name="mode_medium">Medium</string>
     <string name="mode_extreme">Extreme</string>
+    <string name="blank_input_error">blank input</string>
+    <string name="question_ending_error">Must end with \"?\"</string>
+    <string name="question_number">Enter question #%s:</string>
+    <string name="questions_number_hint">Enter number of questions:</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+
 </resources>

@@ -1,7 +1,6 @@
 package ru.mycompany.impossiblequiz.ui.activities;
 
 import android.content.Intent;
-import android.util.Log;
 import android.widget.CompoundButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,12 +47,8 @@ public class SelectQuizCharacterActivity extends AppCompatActivity implements Qu
         viewModel.getVisibleQuizCharacters().observe(this, new Observer<CopyOnWriteArrayList<QuizCharacter>>() {
             @Override
             public void onChanged(CopyOnWriteArrayList<QuizCharacter> quizCharacters) {
-                Log.d("___SELECT", quizCharacters.toString());
                 adapter.updateData(quizCharacters);
                 adapter.notifyDataSetChanged();
-                //adapter.updateData(quizCharacters);
-                //QuizCharacterAdapter newAdapter = new QuizCharacterAdapter(SelectQuizCharacterActivity.this,SelectQuizCharacterActivity.this);
-                //recyclerView.swapAdapter(newAdapter,true);
             }
         });
     }

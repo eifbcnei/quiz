@@ -15,6 +15,10 @@ import java.util.List;
 
 @Entity
 public class QuizCharacter implements Parcelable {
+    @Ignore
+    private final static String QUESTION_ITEM_DIVIDER = "@";
+    @Ignore
+    private final static String QUESTION_DIVIDER = "!";
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String name;
@@ -22,6 +26,7 @@ public class QuizCharacter implements Parcelable {
     private List<Question> questions;
     @TypeConverters({UriConverter.class})
     private Uri avatarUri;
+
 
     public long getId() {
         return id;
@@ -36,6 +41,7 @@ public class QuizCharacter implements Parcelable {
     }
 
     public static class UriConverter {
+
         @TypeConverter
         public String fromUri(Uri uri) {
             return uri.toString();
@@ -45,6 +51,7 @@ public class QuizCharacter implements Parcelable {
         public Uri toUri(String string) {
             return Uri.parse(string);
         }
+
     }
 
     public static class QuestionConverter {
@@ -52,20 +59,20 @@ public class QuizCharacter implements Parcelable {
         public String fromQuestions(List<Question> questions) {
             StringBuilder result = new StringBuilder();
             for (Question question : questions) {
-                result.append(String.format("{%s!%s}", question.getQuestion(), question.getAnswer()));
-                result.append("@");
+                result.append(String.format("{%s%s%s}", question.getQuestion(), QUESTION_DIVIDER, question.getAnswer()));
+                result.append(QUESTION_ITEM_DIVIDER);
             }
-            result.deleteCharAt(result.lastIndexOf("@"));
+            result.deleteCharAt(result.lastIndexOf(QUESTION_ITEM_DIVIDER));
             return result.toString();
         }
 
         @TypeConverter
         public List<Question> toQuestions(String data) {
-            String[] str = data.split("@");
+            String[] str = data.split(QUESTION_ITEM_DIVIDER);
             List<Question> questions = new ArrayList<>();
             for (String s : str) {
                 s = s.replace("{", "").replace("}", "");
-                String[] strings = s.split("!");
+                String[] strings = s.split(QUESTION_DIVIDER);
                 questions.add(new Question(strings[0], strings[1]));
             }
             return questions;

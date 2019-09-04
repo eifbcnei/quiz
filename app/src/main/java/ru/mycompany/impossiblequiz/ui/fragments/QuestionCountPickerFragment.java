@@ -24,9 +24,12 @@ public class QuestionCountPickerFragment extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        return builder.setTitle("Enter number of questions:")
+        String title = getString(R.string.questions_number_hint);
+        String ok = getString(R.string.ok);
+        String cancel = getString(R.string.cancel);
+        return builder.setTitle(title)
                 .setView(R.layout.fragment_question_count_picker)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                .setPositiveButton(ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         EditText in = getDialog().findViewById(R.id.et_question_count);
@@ -37,7 +40,7 @@ public class QuestionCountPickerFragment extends AppCompatDialogFragment {
                             dismiss();
                         }
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }

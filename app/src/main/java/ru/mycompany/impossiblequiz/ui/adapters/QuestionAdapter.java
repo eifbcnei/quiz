@@ -1,6 +1,7 @@
 package ru.mycompany.impossiblequiz.ui.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -27,13 +28,14 @@ public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
     private static final String BANNED_SYMBOL = "@";
     private LayoutInflater inflater;
     private List<QuestionBuilder> questionList;
-
+    private Resources resources;
     private int layout;
 
     public QuestionAdapter(@NonNull Context context, int resource, @NonNull List<QuestionBuilder> objects) {
         super(context, resource, objects);
         inflater = LayoutInflater.from(context);
         questionList = objects;
+        resources = context.getResources();
         layout = resource;
     }
 
@@ -82,7 +84,7 @@ public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
         viewHolder.answerInput.addTextChangedListener(answerAnalyser);
         viewHolder.answerInput.setTag(answerAnalyser);
 
-        viewHolder.questionNumber.setText(String.format("Enter question #%s:", Integer.toString(position + 1)));
+        viewHolder.questionNumber.setText(String.format(resources.getString(R.string.question_number), Integer.toString(position + 1)));
 
         return convertView;
     }
@@ -128,12 +130,12 @@ public class QuestionAdapter extends ArrayAdapter<QuestionBuilder> {
         }
 
         if (isQuestion && !Validation.isCorrectQuestion(input)) {
-            editText.setError("Must end with \"?\"");
+            editText.setError(resources.getString(R.string.question_ending_error));
             return;
         }
 
         if (Validation.isStringBlank(input)) {
-            editText.setError("blank input");
+            editText.setError(resources.getString(R.string.blank_input_error));
             return;
         }
 
