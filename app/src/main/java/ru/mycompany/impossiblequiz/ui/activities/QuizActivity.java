@@ -41,7 +41,7 @@ public class QuizActivity extends AppCompatActivity implements QuestionCountPick
     private static final int CREATE_QC = 1;
     private static final int SELECT_QC = 2;
     private static final int READ_STORAGE_PERMISSION_REQUEST_CODE = 100;
-    private static final int PERMISSION_REQUEST_CODE = 200;
+    private static final int WRITE_STORAGE_PERMISSION_REQUEST_CODE = 200;
 
     private QuizViewModel characterModel;
     @ViewById(R.id.iv_character)
@@ -90,7 +90,7 @@ public class QuizActivity extends AppCompatActivity implements QuestionCountPick
 
     private void requestPermissionForWriteExternalStorage() {
         if (!ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE))
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE_PERMISSION_REQUEST_CODE);
 
     }
 
@@ -108,7 +108,7 @@ public class QuizActivity extends AppCompatActivity implements QuestionCountPick
             public void onChanged(Boolean isCompleted) {
                 if (isCompleted)
                     Snackbar.make(inputView, getString(R.string.succes_message), Snackbar.LENGTH_LONG)
-                            .setAction("Select", new View.OnClickListener() {
+                            .setAction(getString(R.string.select), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     onSelectQuizCharacter();
