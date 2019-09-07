@@ -1,7 +1,10 @@
 package ru.mycompany.impossiblequiz.ui.activities;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -18,10 +21,12 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import ru.mycompany.impossiblequiz.App;
 import ru.mycompany.impossiblequiz.R;
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
 import ru.mycompany.impossiblequiz.ui.adapters.QuizCharacterAdapter;
 import ru.mycompany.impossiblequiz.ui.adapters.QuizCharacterSelector;
+import ru.mycompany.impossiblequiz.utils.ImageUtils;
 import ru.mycompany.impossiblequiz.viewmodels.SelectViewModel;
 
 @EActivity(R.layout.activity_select_quiz_character)
@@ -85,5 +90,14 @@ public class SelectQuizCharacterActivity extends AppCompatActivity implements Qu
         data.putExtra(QuizCharacter.class.getSimpleName(), quizCharacter);
         setResult(RESULT_OK, data);
         finish();
+    }
+
+    @Override
+    public void onSaveQuizCharacter(Uri source,String name) {
+        MediaStore.Images.Media.insertImage(App.applicationContext().getContentResolver(),
+                ImageUtils.getBitmap(ImageUtils.getDrawableFromUri(source)),
+                name.replaceAll(" ", "_"),
+                "ImpossibleQuizImages");
+        Toast.makeText(this,"Saved",Toast.LENGTH_LONG).show();
     }
 }

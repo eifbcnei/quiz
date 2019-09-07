@@ -1,7 +1,6 @@
 package ru.mycompany.impossiblequiz.ui.adapters;
 
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.mycompany.impossiblequiz.App;
 import ru.mycompany.impossiblequiz.R;
 import ru.mycompany.impossiblequiz.models.QuizCharacter;
 import ru.mycompany.impossiblequiz.ui.custom.CircleImageView;
-import ru.mycompany.impossiblequiz.utils.ImageUtils;
 import ru.mycompany.impossiblequiz.utils.Utils;
 
 public class QuizCharacterAdapter extends RecyclerView.Adapter<QuizCharacterAdapter.ViewHolder> {
@@ -53,10 +50,7 @@ public class QuizCharacterAdapter extends RecyclerView.Adapter<QuizCharacterAdap
         holder.save_image_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MediaStore.Images.Media.insertImage(App.applicationContext().getContentResolver(),
-                        ImageUtils.getBitmap(ImageUtils.getDrawableFromUri(source)),
-                        qc.getName().replaceAll(" ", "_"),
-                        "ImpossibleQuizImages");
+                selector.onSaveQuizCharacter(source, qc.getName());
             }
         });
     }
