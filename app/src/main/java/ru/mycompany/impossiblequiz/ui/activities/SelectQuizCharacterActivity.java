@@ -98,6 +98,6 @@ public class SelectQuizCharacterActivity extends AppCompatActivity implements Qu
                 ImageUtils.getBitmap(ImageUtils.getDrawableFromUri(source)),
                 name.replaceAll(" ", "_"),
                 "ImpossibleQuizImages");
-        Toast.makeText(this,"Saved",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,getString(R.string.saved_notification),Toast.LENGTH_LONG).show();
     }
 }

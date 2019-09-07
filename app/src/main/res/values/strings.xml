@@ -22,4 +22,5 @@
     <string name="cancel">Cancel</string>
     <string name="succes_message">You know everything about this character! Try picking another!</string>
     <string name="select">Select</string>
+    <string name="saved_notification">Saved</string>
 </resources>

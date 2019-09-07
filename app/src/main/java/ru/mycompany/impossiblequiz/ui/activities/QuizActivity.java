@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -57,6 +58,8 @@ public class QuizActivity extends AppCompatActivity implements QuestionCountPick
     void onCheckAnswer() {
         String answer = inputView.getText().toString();
         inputView.setText("");
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         characterModel.onCheckAnswer(answer);
     }
 
